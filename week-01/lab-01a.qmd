@@ -49,7 +49,9 @@ We have data for each year from 1960 to 2023.
 
 Let's use this data to explore some questions.
 
-## What were the 20 most popular baby names in 2023?
+### Question 1 
+
+What were the 5 most popular baby names in 2023?
 
 ```{r}
 year_to_plot <- 2023
@@ -64,15 +66,17 @@ baby_names |>
   theme_minimal() +
   theme(legend.position = "none") +
   labs(
-    x = paste0("Number of babies born in ", year_to_plot),
-    y = "Name"
+    x = "Number of babies born",
+    y = "Name",
+    title = paste0("Top 20 most popular baby names in ", year_to_plot)
   ) +
   scale_x_discrete(expand = expansion(mult = c(0.05, 0.15)))
 ```
 
-## What were the 20 most popular baby names in the year you were born?
+### Question 2
 
-In the Quarto document change the "2023" below to the year you were born and render the html again.
+What were the 5 most popular baby names in the year you were born? To investigate this change the "2023" below on line 81 in the Quarto document to the year you were born and render the html again.
+
 ```{r}
 year_to_plot <- 2023
 
@@ -86,13 +90,25 @@ baby_names |>
   theme_minimal() +
   theme(legend.position = "none") +
   labs(
-    x = paste0("Number of babies born in ", year_to_plot),
-    y = "Name"
+    x = "Number of babies born",
+    y = "Name",
+    title = paste0("Top 20 most popular baby names in ", year_to_plot)
   ) +
   scale_x_discrete(expand = expansion(mult = c(0.05, 0.15)))
 ```
 
-## What are the top 20 most popular baby names overall from all babies born between 1960-2023?
+### Question 3
+
+Below are all of the top 25 most popular baby names for each year from 1960-2023.
+Is your name in the list?
+
+```{r}
+sort(unique(baby_names$Name))
+```
+
+### Question 4
+
+What are the top 5 most popular baby names overall from all babies born between 1960-2023?
 
 ```{r}
 all_names_plot <- baby_names |>
@@ -114,14 +130,8 @@ all_names_plot <- baby_names |>
 all_names_plot
 ```
 
-## Is your name in the list of the most popular baby names?
 
-```{r}
-sort(unique(baby_names$Name))
-```
-
-
-## Are the top 20 most popular baby names overall the same when we correct for truncation?
+## Correcting truncated names
 
 If you look into the **data dictionary** it says:
 *Names in records from data years 1960 through 1977 are truncated to 8 characters, and 1978 through 2017 are truncated to 12 characters.* 
@@ -129,6 +139,10 @@ If you look into the **data dictionary** it says:
 
 When we look at names across the entire time period we may get different results if we truncated all names to 8 characters.
 This truncation is accounted for in the plot below.
+
+### Question 5
+
+Did the top 5 most popular baby names change once we corrected for inconsistent truncation of long names?
 
 ```{r}
 baby_names <- baby_names |> 
@@ -153,13 +167,19 @@ corrected_all_names_plot <-  baby_names |>
   )  +
   scale_x_discrete(expand = expansion(mult = c(0.05, 0.15)))
 
-gridExtra::grid.arrange(all_names_plot, corrected_all_names_plot, ncol = 2)
+gridExtra::grid.arrange(
+  all_names_plot + 
+    labs(
+      y = "Uncorrect names",
+      x = "Number of babies born from 1960-2023"
+    ), 
+  corrected_all_names_plot, 
+  ncol = 2
+)
 ```
 
-Do you notice any difference?
 
-
-## How did the 5 overall most popular names change over the years?
+## 5 most popular baby names over the years
 
 ```{r}
 most_popular_names <- baby_names |> 
@@ -183,8 +203,11 @@ baby_names |>
   ylim(0, 9000)
 ```
 
-Did the most popular name in 1960 stay the most popular? 
+### Question 6
 
-If not, when did a different name become more popular and what was it?
+Did the most popular name in 1960 stay the most popular? If not, when did a different name become more popular and what was it?
+
+
+### Question 7
 
 Notice that the line for the name "Matthew" does not start until approximately the year 1968. Why do you think that is?
