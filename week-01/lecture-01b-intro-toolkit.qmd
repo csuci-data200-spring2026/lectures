@@ -1,5 +1,5 @@
 ---
-title: "Data 200: Lecture 1a"
+title: "Data 200: Lecture 1b"
 subtitle: "Introduction to Toolkit!"
 author: "Professor Catalina Medina"
 format: 
