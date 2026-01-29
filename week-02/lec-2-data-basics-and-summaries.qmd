@@ -74,8 +74,20 @@ beep()
 
 Why are we seeing this error?
 
+## To install and load an R package
 
-## Using `install.packages()`
+1. Install the package onto our computer **once**
+
+    - Option 1: use `install.packages()` in the Console
+    - Option 2: use "Install" button in "Packages" pane in RStudio
+
+2. Load the package into **each** session/document
+
+    - Option 1: Use the `library()` function to load entire package
+    - Option 2: Use the `::` option to load a single function
+
+
+## Installation option 1: `install.packages()`
 
 In your **Console**, install the beepr package
 
@@ -83,11 +95,11 @@ In your **Console**, install the beepr package
 install.packages("beepr")
 ```
 
-We do this in the Console because we only need to do it once.
+We do this in the Console because we only need to do it once. Don't forget quotations!
 
 
 
-## Using Packages pane
+## Installation option 2: Packages pane
 
 ```{r echo = FALSE, out.width="40%", fig.align='center'}
 knitr::include_graphics("img/packages-pane.png")
@@ -97,45 +109,40 @@ Packages Pane > Install
 
 
 
-## Letting RStudio Install
+## Sometimes RStudio will prompt you to install
 
 ```{r echo = FALSE, out.width="80%", fig.align='center'}
 knitr::include_graphics("img/rstudio-install.png")
 ```
 
-If you save your file and using a package RStudio will tell you that you have not installed the package.
-
-## Using beep() from beepr
+If you try to skip to step 2, loading a package, without first installing it RStudio may let you know.
 
 
-Option 1
+## Loading option 1: `library()`
+
+
+Option 1 (more common)
 ```{r warning = FALSE, eval = FALSE}
 library(beepr)
 beep()
 ```
 
-More common usage.
+- Line 1 loads the library so on any following line you can use a function or dataset from the package
+- Line 2 uses the package
 
-Useful if you are going to use multiple functions from the same package.
-E.g. we have used many functions (ggplot, aes, geom_...) from the ggplot2 package. In such cases, usual practice is to put the library name in the first R chunk in the .qmd file.
+## Loading option 2: `::`
 
-
-
-## Using beep() from beepr
-
-Option 2
+Option 2 (less common)
 
 ```{r eval = FALSE}
 beepr::beep()
 ```
-Useful when you are going to use a function once or few times. Also useful if there are any conflicts. For instance if there is some other package in your environment that has a beep() function that prints the word beep, you would want to distinguish the beep function from the beepr package and the beep function from the other imaginary package.
 
-##
+- structure is package name, ::, function()
+- This may be useful if
 
-```{r echo=FALSE, fig.align='center', out.width="80%"}
-knitr::include_graphics("img/beep-help.png")
-```
-
+    - the package is large but you only want to use a function once
+    - there are conflicts, i.e., multiple packages containing functions with the same name
 
 ## Open Source
 
@@ -157,21 +164,22 @@ knitr::include_graphics("img/beep-help.png")
 
 
 >The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.
-                  tidyverse.org
+
+[tidyverse.org](https://tidyverse.org/)
 
 
 ## Tidyverse
 
-In short, tidyverse is a family of packages. From practical stand point, you can install many tidyverse packages at once (and you did this).
+In short, tidyverse is a family of packages we will commonly use. 
 
-
-##
-
-We can also load multiple tidyverse packages all at the same time.
-
-```{r message = TRUE}
+```{r}
+#| eval: false
+#| echo: true
 library(tidyverse)
 ```
+
+- Loading tidyverse loads a bunch of packages at once (e.g., ggplot2, dplyr, readr, stringr, lubridate, ...)
+- It is good practice to load all packages in an RChunk at the top of your Quarto document (after yaml)
 
 # Data basics
 

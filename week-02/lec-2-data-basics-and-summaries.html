@@ -448,46 +448,66 @@ Medina - CSU Channel Islands
 </div>
 <p>Why are we seeing this error?</p>
 </section>
-<section id="using-install.packages" class="slide level2">
-<h2>Using <code>install.packages()</code></h2>
+<section id="to-install-and-load-an-r-package" class="slide level2">
+<h2>To install and load an R package</h2>
+<ol type="1">
+<li><p>Install the package onto our computer <strong>once</strong></p>
+<ul>
+<li>Option 1: use <code>install.packages()</code> in the Console</li>
+<li>Option 2: use “Install” button in “Packages” pane in RStudio</li>
+</ul></li>
+<li><p>Load the package into <strong>each</strong> session/document</p>
+<ul>
+<li>Option 1: Use the <code>library()</code> function to load entire package</li>
+<li>Option 2: Use the <code>::</code> option to load a single function</li>
+</ul></li>
+</ol>
+</section>
+<section id="installation-option-1-install.packages" class="slide level2">
+<h2>Installation option 1: <code>install.packages()</code></h2>
 <p>In your <strong>Console</strong>, install the beepr package</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="fu">install.packages</span>(<span class="st">"beepr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We do this in the Console because we only need to do it once.</p>
+<p>We do this in the Console because we only need to do it once. Don’t forget quotations!</p>
 </section>
-<section id="using-packages-pane" class="slide level2">
-<h2>Using Packages pane</h2>
+<section id="installation-option-2-packages-pane" class="slide level2">
+<h2>Installation option 2: Packages pane</h2>
 
 <img data-src="img/packages-pane.png" class="quarto-figure quarto-figure-center r-stretch" style="width:40.0%"><p>Packages Pane &gt; Install</p>
 </section>
-<section id="letting-rstudio-install" class="slide level2">
-<h2>Letting RStudio Install</h2>
+<section id="sometimes-rstudio-will-prompt-you-to-install" class="slide level2">
+<h2>Sometimes RStudio will prompt you to install</h2>
 
-<img data-src="img/rstudio-install.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p>If you save your file and using a package RStudio will tell you that you have not installed the package.</p>
+<img data-src="img/rstudio-install.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"><p>If you try to skip to step 2, loading a package, without first installing it RStudio may let you know.</p>
 </section>
-<section id="using-beep-from-beepr" class="slide level2">
-<h2>Using beep() from beepr</h2>
-<p>Option 1</p>
+<section id="loading-option-1-library" class="slide level2">
+<h2>Loading option 1: <code>library()</code></h2>
+<p>Option 1 (more common)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">library</span>(beepr)</span>
 <span id="cb4-2"><a href=""></a><span class="fu">beep</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>More common usage.</p>
-<p>Useful if you are going to use multiple functions from the same package. E.g. we have used many functions (ggplot, aes, geom_…) from the ggplot2 package. In such cases, usual practice is to put the library name in the first R chunk in the .qmd file.</p>
+<ul>
+<li>Line 1 loads the library so on any following line you can use a function or dataset from the package</li>
+<li>Line 2 uses the package</li>
+</ul>
 </section>
-<section id="using-beep-from-beepr-1" class="slide level2">
-<h2>Using beep() from beepr</h2>
-<p>Option 2</p>
+<section id="loading-option-2" class="slide level2">
+<h2>Loading option 2: <code>::</code></h2>
+<p>Option 2 (less common)</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>beepr<span class="sc">::</span><span class="fu">beep</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Useful when you are going to use a function once or few times. Also useful if there are any conflicts. For instance if there is some other package in your environment that has a beep() function that prints the word beep, you would want to distinguish the beep function from the beepr package and the beep function from the other imaginary package.</p>
+<ul>
+<li><p>structure is package name, ::, function()</p></li>
+<li><p>This may be useful if</p>
+<ul>
+<li>the package is large but you only want to use a function once</li>
+<li>there are conflicts, i.e., multiple packages containing functions with the same name</li>
+</ul></li>
+</ul>
 </section>
-<section id="section" class="slide level2">
-<h2></h2>
-
-<img data-src="img/beep-help.png" class="quarto-figure quarto-figure-center r-stretch" style="width:80.0%"></section>
 <section id="open-source" class="slide level2">
 <h2>Open Source</h2>
 <ul>
@@ -500,19 +520,20 @@ Medina - CSU Channel Islands
 <section id="tidyverse" class="slide level2">
 <h2>Tidyverse</h2>
 <blockquote>
-<p>The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures. tidyverse.org</p>
+<p>The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures.</p>
 </blockquote>
+<p><a href="https://tidyverse.org/">tidyverse.org</a></p>
 </section>
 <section id="tidyverse-1" class="slide level2">
 <h2>Tidyverse</h2>
-<p>In short, tidyverse is a family of packages. From practical stand point, you can install many tidyverse packages at once (and you did this).</p>
-</section>
-<section id="section-1" class="slide level2">
-<h2></h2>
-<p>We can also load multiple tidyverse packages all at the same time.</p>
+<p>In short, tidyverse is a family of packages we will commonly use.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+<ul>
+<li>Loading tidyverse loads a bunch of packages at once (e.g., ggplot2, dplyr, readr, stringr, lubridate, …)</li>
+<li>It is good practice to load all packages in an RChunk at the top of your Quarto document (after yaml)</li>
+</ul>
 </section></section>
 <section>
 <section id="data-basics" class="title-slide slide level1 center">
@@ -576,7 +597,7 @@ Medina - CSU Channel Islands
 <p><code>perc_alcohol</code> Percentage of drivers involved in fatal collisions who were alcohol-impaired</p>
 <p><code>perc_not_distracted</code> Percentage of drivers involved in fatal collisions who were not distracted</p>
 </section>
-<section id="section-2" class="slide level2">
+<section id="section" class="slide level2">
 <h2></h2>
 <p><code>perc_no_previous</code> Percentage of drivers involved in fatal collisions who had not been involved in any previous accidents</p>
 <p><code>insurance_premiums</code> Car insurance premiums ($)</p>
@@ -648,7 +669,7 @@ $ losses              &lt;dbl&gt; 145.08, 133.93, 110.35, 142.39, 165.63, 139.91
 <h2>Getting to know the data frame</h2>
 
 <img data-src="img/data-environment.png" class="quarto-figure quarto-figure-center r-stretch" style="width:100.0%"></section>
-<section id="section-3" class="slide level2">
+<section id="section-1" class="slide level2">
 <h2></h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="fu">glimpse</span>(candy_rankings)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -664,7 +685,7 @@ $ winpercent     &lt;dbl&gt; 66.97173, 67.60294, 32.26109, 46.11650, 52.34146, 5
 </div>
 </div>
 </section>
-<section id="section-4" class="slide level2">
+<section id="section-2" class="slide level2">
 <h2></h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">glimpse</span>(bob_ross)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -812,7 +833,7 @@ $ wood_framed        &lt;int&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 </ul>
 </div>
 </section>
-<section id="section-5" class="slide level2">
+<section id="section-3" class="slide level2">
 <h2></h2>
 <p>As a data scientist it is your job to check the type(s) of data that you are working with. Do not assume you will work with clean data frames, with clean names, labels, and types.</p>
 </section></section>
@@ -875,11 +896,11 @@ $ reservation_status &lt;fct&gt; Canceled, Canceled, Check-Out, Check-Out, Check
 </div>
 <p>What kind of variables are these two?</p>
 </section>
-<section id="section-6" class="slide level2">
+<section id="section-4" class="slide level2">
 <h2></h2>
 <p>Categorical data are summarized with <strong>counts</strong> or <strong>proportions</strong></p>
 </section>
-<section id="section-7" class="slide level2">
+<section id="section-5" class="slide level2">
 <h2></h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="fu">count</span>(hotel_bookings, reservation_status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -893,7 +914,7 @@ $ reservation_status &lt;fct&gt; Canceled, Canceled, Check-Out, Check-Out, Check
 </div>
 </div>
 </section>
-<section id="section-8" class="slide level2">
+<section id="section-6" class="slide level2">
 <h2></h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href=""></a><span class="fu">count</span>(hotel_bookings, reservation_status, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -907,7 +928,7 @@ $ reservation_status &lt;fct&gt; Canceled, Canceled, Check-Out, Check-Out, Check
 </div>
 </div>
 </section>
-<section id="section-9" class="slide level2">
+<section id="section-7" class="slide level2">
 <h2></h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a><span class="fu">tabyl</span>(hotel_bookings, reservation_status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1004,7 +1025,7 @@ $ reservation_status &lt;fct&gt; Canceled, Canceled, Check-Out, Check-Out, Check
 <p>In this case, we have two numbers in the middle 7.5 and 8. The average of these numbers would be the median. In this case, the median is 7.75.</p>
 <p><span class="math display">\[\frac{7.5 + 8}{2} = 7.75\]</span></p>
 </section>
-<section id="section-10" class="slide level2">
+<section id="section-8" class="slide level2">
 <h2></h2>
 <p>Median is also the 50th percentile indicating that 50% of the data fall below this value.</p>
 </section>
