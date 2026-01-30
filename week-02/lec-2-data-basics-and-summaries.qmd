@@ -199,6 +199,11 @@ knitr::include_graphics('img/titanic-head.png')
 knitr::include_graphics('img/titanic-tail.png')
 ```
 
+- `pclass` a factor with levels 1st, 2nd, and 3rd
+- `survived` Survival (0 = No; 1 = Yes)
+- `age` age in years
+- `sibsp` Number of Siblings/Spouses Aboard
+- ...
 
 ## Data documentation
 
@@ -207,19 +212,13 @@ knitr::include_graphics('img/titanic-tail.png')
 ?titanic3
 ```
 
-`pclass` a factor with levels 1st, 2nd, and 3rd
+```{r}
+#| echo: false
+#| fig-align: center
+knitr::include_graphics('img/titanic-help.png')
+```
 
-`survived` Survival (0 = No; 1 = Yes)
 
-`name` Name
-
-`sex` a factor with levels female and male
-
-`age` age in years
-
-`sibsp` Number of Siblings/Spouses Aboard
-
-...
 
 ## Data Frame
 
@@ -227,7 +226,7 @@ The columns of a data frame are called **variables**
 
 The rows of a data frame are called **cases** or **observations**
 
-For the driving data 
+For the titanic 
 
 - the variables are: `pclass`, `survived`, `name`, `sex`, `age`, `sibsp`, `parch`, `ticket`, `fare`, `cabin`, `embarked`, `boat`, `body`, `home.dest`
 - the cases/observations are passengers
