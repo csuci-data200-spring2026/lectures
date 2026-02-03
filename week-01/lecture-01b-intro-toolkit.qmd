@@ -317,10 +317,4 @@ In order for us to see your commits and your final submission on any file, you h
 
 ## Connecting Github and RStudio
 
-<center>
-
-<video width="80%" height="45%" align = "center" controls>
-  <source src="screencast/00d-ssh-setup.mp4" type="video/mp4">
-</video>
-
-</center>
+*I moved the video from here to the* "Getting setup with our tools" *page on CI Learn.*
