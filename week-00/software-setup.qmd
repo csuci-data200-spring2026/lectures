@@ -21,7 +21,7 @@ You first need to choose what computer to setup (you can do multiple if you woul
 
 If it says it does not recognize the command, then you do not have Git installed. Installation differs by operating system, if you have:
 
-- Windows, use this link to install [Git](https://gitforwindows.org/).
+- Windows (and CI Virtual Lab), use this link to install [Git](https://gitforwindows.org/).
 - Mac, in the Terminal in RStudio enter `git --version`, then `git config`, then accept the offer and click "Install".
 - For linux or any issues installing Git follow [this guide](https://happygitwithr.com/install-git#linux) specific to your operating system.
 
