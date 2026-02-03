@@ -6,7 +6,7 @@ format: html
 You first need to choose what computer to setup (you can do multiple if you would like)
 
 - personal computer/laptop (recommened if possible)
-- [CI Virtual Labs](http://go.csuci.edu/vdi) (recommended if you don't have a laptop you can configure software on) This allows you to use a web browser and it will look just like if you logged onto a school computer.
+- [CI Virtual Labs](http://go.csuci.edu/vdi) (recommended if you don't have a laptop you can configure software on) This allows you to use a web browser and it will look just like if you logged onto a school computer. When Microsoft asks for your email give it you school email, but instead of "@myci.csuci.edu" use "@csuci.edu".
 - School computer (Only recommended if you plan to use the same class desktop for homework as well)
 
 ## Installing R and RStudio
