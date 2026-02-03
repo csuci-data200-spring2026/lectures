@@ -1,6 +1,8 @@
 ---
 title: "Getting set up with R, RStudio, and Git"
-format: html
+format: 
+  html:
+    toc: true
 ---
 
 You first need to choose what computer to setup (you can do multiple if you would like)

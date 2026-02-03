@@ -6,7 +6,7 @@ format: html
 Each week you will have a **repository**, a special folder with version control, on GitHub with your name. You will have to:
 
 - Clone the repository using the SSH key to create a new project in RStudio.
-- Make edits to your Quarto file, saving and committing regularly.
+- Make edits to your Quarto file, saving and committing regularly with clear, concise committ messages.
 - Push you edits to GitHub online.
 
 <center>
