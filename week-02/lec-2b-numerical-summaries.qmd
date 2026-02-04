@@ -1,0 +1,417 @@
+---
+title: "Data 200: Lecture 2b"
+subtitle: "Numerical summaries for data"
+author: "Medina - CSU Channel Islands"
+format: 
+  revealjs:
+    theme: [sky, ../slide-style.scss]
+    slide-number: true
+execute:
+  echo: true  
+---
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#library(fivethirtyeight)
+#library(openintro)
+library(tidyverse)
+#library(DiagrammeR)
+#library(DiagrammeRsvg)
+library(janitor)
+#library(bayesrules)
+```
+
+## Data
+
+```{r}
+library(bayesrules)
+data(hotel_bookings)
+glimpse(hotel_bookings)
+```
+
+## Data
+
+```{r}
+#| echo: false
+hotel_bookings %>% 
+  select(lead_time, reservation_status) %>% 
+  glimpse()
+```
+
+What kind of variables are these two?
+
+##
+
+Categorical data are summarized with **counts** or **proportions**
+
+
+##
+
+```{r}
+count(hotel_bookings, reservation_status)
+```
+
+
+##
+
+```{r}
+count(hotel_bookings, reservation_status, sort = TRUE)
+```
+
+##
+
+```{r}
+tabyl(hotel_bookings, reservation_status)
+```
+
+
+
+## Summarizing Numerical Data
+
+
+Consider the following data which represents the number of hours slept for 10 people who were surveyed.
+
+
+<table>
+
+<tr>
+
+<td> 7 </td>
+<td> 7.5 </td>
+<td> 8 </td>
+<td> 5.5 </td>
+<td> 10 </td>
+<td> 7.2 </td>
+<td> 7 </td>
+<td> 8 </td>
+<td> 9 </td>
+<td> 8 </td>
+
+
+</tr>
+
+
+
+</table>
+
+
+
+## Mean
+
+$$\bar x = \frac{7+7.5+8+5.5+10+7.2+7+8+9+8}{10} = 7.72$$
+
+The mean is calculated by summing the observed values and then dividing by the number of observations.
+
+
+$$\bar x = \frac{x_1 + x_2+.... x_n}{n}$$
+
+
+where $\bar x$ represents the mean of observed values, $x_1$, $x_2$, ... $x_n$ represent the n observed values.
+
+
+
+## Median
+
+If all the observations are listed from smallest to largest (or vice versa), the median is the observation that falls in the middle. 
+
+
+
+<table>
+
+<tr>
+
+<td> 5.5 </td>
+<td> 7 </td>
+<td> 7 </td>
+<td> 7.2 </td>
+<td> 7.5 </td>
+<td> 8 </td>
+<td> 8 </td>
+<td> 8 </td>
+<td> 9 </td>
+<td> 10 </td>
+
+
+</tr>
+
+
+</table>
+
+
+
+In this case, we have two numbers in the middle 7.5 and 8. The average of these numbers would be the median. In this case, the median is 7.75. 
+
+$$\frac{7.5 + 8}{2} = 7.75$$
+
+##
+
+Median is also the 50th percentile indicating that 50% of the data fall below this value.
+
+
+
+## Q1, Q3, and Interquartile Range
+
+First quartile (Q1) is the point at which 25% of the data fall below of. 
+
+Third quartile (Q3) is the point at which 75% of the data fall below of. 
+
+Q1 and Q3 can be considered 25th and 75th percentiles respectively. 
+
+Interquartile Range (IQR) = Q3 - Q1] which represents the middle 50% of the data.
+
+
+## In Pairs: Discuss
+
+Consider Dr. Medina teaching three classes. 
+Pretend all of these classes have 5 students. 
+Below are exam results from these classes. 
+
+Class 1: 80 80 80 80 80  
+Class 2: 76 78 80 82 84  
+Class 3: 60 70 80 90 100  
+
+All of these classes have a mean of 80 points. 
+Do you think the mean describes these classes well? 
+Can you think of any other way to describe (in words not in numbers) how these classes differ?
+
+
+
+## Standard deviation and Variance {.smaller}
+
+
+<table align = "center">
+<thead>
+
+<th>x<sub>i</sub> </th> <th> $x_i - \bar{x}$ </th> <th> $(x_i - \bar{x})^2$</sup></th>
+</thead>
+
+<tr> 
+<td>5.5 </td> <td> 5.5-7.72 = -2.22 hr</td> <td> (-2.2 hr)<sup>2</sup> = 4.9284 hr <sup>2</sup> </td>
+</tr>
+
+<tr> 
+<td>7 </td> <td> 7-7.72 = -0.72 hr</td> <td> (-0.72 hr)<sup>2</sup> = 0.5184 hr <sup>2</sup></td>
+</tr>
+
+<tr> 
+<td>7 </td> <td> 7-7.72 = -0.72 hr</td> <td> (-0.72 hr)<sup>2</sup> = 0.5184 hr <sup>2</sup></td>
+</tr>
+
+<tr> 
+<td>7.2 </td> <td> 7.2-7.72 = -0.52 hr</td> <td> (-0.52 hr)<sup>2</sup> = 0.2704 hr <sup>2</sup></td>
+</tr>
+
+<tr> 
+<td>7.5 </td> <td> 7.5-7.72 = -0.22 hr</td> <td> (-0.22 hr)<sup>2</sup> = 0.0484 hr <sup>2</sup></td>
+</tr>
+
+<tr> 
+<td>8 </td> <td> 8-7.72 = 0.28 hr</td> <td> (0.28 hr)<sup>2</sup> = 0.0784 hr <sup>2</sup></td>
+</tr>
+
+<tr> 
+<td>8 </td>  <td> 8-7.72 = 0.28 hr</td> <td> (0.28 hr)<sup>2</sup> = 0.0784 hr <sup>2</sup></td>
+</tr>
+
+<tr> 
+<td>8 </td> <td> 8-7.72 = 0.28 hr</td> <td> (0.28 hr)<sup>2</sup> = 0.0784 hr <sup>2</sup></td>
+</tr>
+
+<tr> 
+<td>9 </td> <td> 9-7.72 = 1.28 hr</td> <td> (1.28 hr)<sup>2</sup> = 1.6384 hr <sup>2</sup></td>
+</tr>
+
+<tr> 
+<td>10 </td> <td> 10-7.72 = 2.28 hr</td> <td> (2.28 hr)<sup>2</sup> = 5.1984 hr <sup>2</sup></td>
+</tr>
+
+</table>
+
+
+
+
+## Total squared distance from the mean
+
+
+$\Sigma_{i = 1}^{n} (x_i - \bar x )^2 =$
+
+$4.9284 + 0.5184 + 0.5184 + 0.2704 + 0.0484 +$ 
+$0.0784 + 0.0784 + 0.0784+ 1.6384 + 5.1984 = 13.356 \text{ hr}^2$
+
+Note that $n$ represents the number of observations which means $n = 10$.
+
+
+## Sample variance
+
+<br>    
+
+
+$$s^2 = \frac{\Sigma_{i = 1}^{n} (x_i - \bar x )^2}{n-1}$$ 
+
+
+<br>
+
+$$s^2= \frac{13.356}{10-1} = 1.484\text{ hr}^2$$
+
+
+
+## Sample standard deviation
+
+<br>
+
+$$s = \sqrt{\frac{\Sigma_{i = 1}^{n} (x_i - \bar x )^2}{n-1}}$$
+
+
+<br>
+$$s= \sqrt{1.484} = 1.218195 \text{ hr}$$
+
+## Mean
+
+
+```{r}
+summarize(hotel_bookings, mean(lead_time))
+```
+
+```{r}
+mean(hotel_bookings$lead_time)
+```
+
+
+## Median
+
+
+```{r}
+summarize(hotel_bookings, median(lead_time))
+```
+
+
+```{r}
+median(hotel_bookings$lead_time)
+```
+
+
+## Minimum
+
+```{r}
+summarize(hotel_bookings, min(lead_time))
+```
+
+
+```{r}
+min(hotel_bookings$lead_time)
+```
+
+In a similar fashion maxiumum can be found by using the `max()` function.
+
+## Standard deviation
+
+
+```{r}
+summarize(hotel_bookings, sd(lead_time))
+```
+
+
+```{r}
+sd(hotel_bookings$lead_time)
+```
+
+
+## Variance
+
+
+```{r}
+summarize(hotel_bookings, var(lead_time))
+```
+
+
+```{r}
+var(hotel_bookings$lead_time)
+```
+
+
+## Quantiles / Percentiles / Quartiles
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-7rfc{border-color:inherit;font-family:Arial, Helvetica, sans-serif !important;;font-size:28px;text-align:left;
+  vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-7rfc">Quantile</th>
+    <th class="tg-7rfc">Percentile</th>
+    <th class="tg-7rfc">Special Name</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-7rfc">0.25</td>
+    <td class="tg-7rfc">25th</td>
+    <td class="tg-7rfc">First quartile</td>
+  </tr>
+  <tr>
+    <td class="tg-7rfc">0.5</td>
+    <td class="tg-7rfc">50th</td>
+    <td class="tg-7rfc">Median</td>
+  </tr>
+  <tr>
+    <td class="tg-7rfc">0.75</td>
+    <td class="tg-7rfc">75th</td>
+    <td class="tg-7rfc">Third quartile</td>
+  </tr>
+</tbody>
+</table>
+
+## Quantiles
+
+```{r}
+summarize(
+  hotel_bookings, 
+  quantile(lead_time, c(0.25, 0.50, 0.75))
+)
+```
+
+```{r echo = FALSE}
+q1 <- summarize(hotel_bookings, quantile(lead_time, c(0.25))) %>% 
+  pull()
+```
+
+
+We would expect 25% of the data to be less than `r q1`. 
+
+
+## Advantages of `summarize()`
+
+We can get multiple summaries with one `summarize()` function.
+
+
+```{r}
+summarize(
+  hotel_bookings,
+  mean(lead_time),
+  median(lead_time)
+)
+```
+
+Note how the variables names in this table is not easy to read. 
+
+## Renaming variables with `summarize()`
+
+In order to display the variable names more legibly in the output, we can assign variable names to numerical summaries (e.g. `mean_lead_time`).
+
+```{r}
+summarize(
+  hotel_bookings,
+  mean_lead_time = mean(lead_time),
+  med_lead_time = median(lead_time)
+)
+```
+
+# Lab 2b part 2
