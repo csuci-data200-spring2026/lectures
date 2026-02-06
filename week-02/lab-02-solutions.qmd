@@ -1,0 +1,216 @@
+---
+title: "Data 200: Lab 2 Solutions"
+subtitle: "Familiarizing yourself with data"
+author: "Your name here"
+format: 
+  html:
+    echo: true
+    message: false
+    warning: false
+    toc: true
+    embed-resources: true
+---
+
+*Please always start labs and homework by changing the author to your name. Please answer questions using complete sentences where appropriate.*
+
+
+# Summarizing week 2 lecture
+
+We will start this lab by summarizing the lecture content.
+Replace each "**Fill in the blank**" with the appropriate word.
+
+
+## R packages: install vs. load
+
+-   **Install** a package once on your computer.
+-   **Load** a package every time you start a new session / Quarto document.
+
+
+## Data frames
+
+A data frame is a rectangular table:
+
+-   **rows** = variables
+-   **columns** = observations (cases)
+
+Common ways to "get to know" a dataset:
+
+-   `glimpse()` (quick structure)
+-   `head()` / `tail()` (top/bottom rows, displays 6 rows by default)
+-   `nrow()` / `ncol()` (number of rows/columns)
+-   `?dataset_name` or `?function_name` (to view help documentation)
+
+
+## Statistical variable types
+
+Knowing the variable type helps you choose the right summaries/plots.
+
+Numerical
+
+-   **Discrete**: finite number of possibilities, typically counts (e.g., number of bids)
+-   **Continuous**: infinite number of possibilities, typically measurements (e.g., temperature)
+
+Categorical
+
+-   **Nominal**: no natural order (e.g., US states)
+-   **Ordinal**: natural order (e.g., rating levels, if applicable)
+
+
+## Common storage types in R
+
+Categorical storage types:
+
+-   **character**, **factor**, **logical**
+
+Numerical storage types:
+
+-   **integer**, **double**, **numeric**
+
+Summarizing categorical variables
+
+-   Counts: `count(data, var)`
+-   Proportions: `tabyl(data, var)`
+
+
+## Summarizing numerical variables
+
+Measures of center:
+
+-   **mean**: `mean()`
+-   **median**: `median()`
+
+Measures of spread:
+
+-   **standard deviation**: `sd()`
+-   **variance**: `var()`
+-   **quantile / percentiles**: `quantile()`
+
+Use `summarize()` to compute multiple statistics at once.
+
+
+# Part 1: Introduction to the data
+
+In this lab we will be working with Wii Mario Kart Ebay auction data.
+We will use functions from the tidyverse packages and data from the openintro package, so they are being loaded below.
+In order to run the code chunk below both packages have to be installed on your computer.
+
+```{r}
+library(tidyverse)
+library(openintro)
+
+data("mariokart")
+```
+
+
+## Question 1
+
+Use the `head()` function on the `mariokart` data in the code chunk below to view the first 6 rows of the data frame.
+
+```{r}
+head(mariokart)
+```
+
+## Question 2
+
+Use the `glimpse()` function on the `mariokart` data to view the structure of the data.
+I did not insert an R code chunk for you to use, so you will have to insert one yourself first.
+
+```{r}
+glimpse(mariokart)
+```
+
+
+## Question 3
+
+Please look at the data documentation using `?mariokart` in the console.
+For each column below please specify what type of variable it is and an appropriate R variable type.
+The first one is done for you as an example.
+
+-   `duration`: Numeric discrete
+-   `id`: Nominal categorical (Just because it is stored as numbers does not mean it is numeric! These numbers don't necessarily have mathematical meaning and could just as easily been letters.)
+-   `n_bids`: Numeric discrete
+-   `cond`: nominal categorical
+-   `total_pr`: continuous numeric (I'd also accept discrete since we know we are counting by cents at minimum)
+-   `title`: nominal categorical
+
+
+## Question 4
+
+Please view the data and make sure the R storage types for each column are appropriate for the type of variable.
+Note any variables that have an inappropriate R storage type.
+
+For example the variable `start_pr` is numeric and the R storage type is "dbl", meaning `double`.
+A `double` is just a numeric that can take decimals, so it is appropriate.
+
+**Solution:**
+
+I only noticed the `id` column as having a storage type that can be misleading since it is stored as an integer but is actually categorical.
+
+## Question 5
+
+Let's practice with Github. 
+
+- Save this file,
+- Make a commit for this file with a message saying "Finished questions 1-5",
+- Push your commit to GitHub
+- Check GitHub online to see if you can see your changes.
+
+
+# Part 2: Summarizing our data numerically
+
+We will start part 2 on Wednesday.
+
+I'm curious how much people ended up selling the game for.
+
+
+## Question 6
+
+Which variable contains this information?
+
+**Solution:**
+
+`total_pr` contains the auction price plus shipping price. (Look at the documentation!)
+
+
+## Question 7
+
+Please calculate a value that tells me how much the game typically sold for.
+Use inline code to answer.
+
+**Solution:**
+
+```{r}
+mean_price <- mean(mariokart$total_pr)
+```
+
+The mean total price is `r mean_price`.
+
+
+## Question 8
+
+Please calculate a value that describes the variability in final sale price.
+Use inline code to answer.
+
+**Solution:**
+
+```{r}
+sd_price <- sd(mariokart$total_pr)
+```
+
+The standard deviation of the total price is `r sd_price`.
+
+## Question 9
+
+```{r}
+janitor::tabyl(mariokart, cond)
+```
+
+What percent of games were sold new?
+
+**Solution:**
+
+41% of games were sold new.
+
+# GitHub
+
+When you finish this assignment don't forget to commit and push to GitHub before uploading the rendered html to Canvas.
