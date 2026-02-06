@@ -377,7 +377,7 @@ ggplot(
 ggplot(
   babies,
   aes(x = smoke, y = bwt)
-)  +
+) +
   geom_boxplot() 
 ```
 
