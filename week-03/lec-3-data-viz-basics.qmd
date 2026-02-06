@@ -505,3 +505,16 @@ We can use color to consider a third variable
 The plus sign for adding layers `+` always has a space before it and is followed by a new line. 
 
 The new line is indented by two spaces. RStudio does this automatically for you. 
+
+## Recap
+
+```{r}
+#| label: fig-ggplot-summary
+#| out-width: 80%
+#| echo: false
+#| fig-cap: "Hello Data Science Figure 3.21"
+#| fig-alt: "A reference chart summarizing ggplot2 aesthetics and geoms. The chart is divided into two columns. The left column lists aesthetic mappings under 'aes = (...........)'  correspoinding arguments: x and y representing horizontal vertical arrows, respectively. Color groups points using color, such as black, pink, and green. Fill breaks bars based on groups assigning a color to each group, such as a barplot with three rectangles in pink and green. Shape groups points using shapes, such as circle, triangle, and square. Size maps a numerical variable to distinguish the amount of it based on the size of the point, such as pink circles of increasing size. The right column lists geoms under 'geom_.........()' with corresponding icons: bar with three vertical bars with space betweeen them, histogram with a series of small bars touching each other forming a distribution, boxplot with a horizontal box and whiskers, point with a scatterplot of small green dots. The chart visually connects aesthetic options on the left to common geom types on the right."
+
+
+knitr::include_graphics("img/ggplot-summary.png")
+```
