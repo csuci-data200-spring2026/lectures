@@ -704,10 +704,20 @@ $ smoke     &lt;lgl&gt; FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FA
 </section>
 <section id="standardized-bar-plots" class="slide level2">
 <h2>Standardized Bar Plots</h2>
+
+<img data-src="lec-3a-data-viz-basics_files/figure-revealjs/unnamed-chunk-20-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><div class="fragment">
+<p>Note that the y axis still shows as a count. We will learn how to change the axis labels this week.</p>
+</div>
+<div class="fragment">
+<p><em>What type of variables can we display with a standardized bar plot?</em></p>
+</div>
+</section>
+<section id="standardized-bar-plots-1" class="slide level2">
+<h2>Standardized Bar Plots</h2>
 <div class="cell columns column-output-location" data-layout-align="center">
 <div class="column">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="fu">ggplot</span>(</span>
-<span id="cb11-2"><a href=""></a>  <span class="at">data =</span> babies,</span>
+<span id="cb11-2"><a href=""></a>  babies,</span>
 <span id="cb11-3"><a href=""></a>  <span class="fu">aes</span>(<span class="at">x =</span> smoke, <span class="at">fill =</span> parity)</span>
 <span id="cb11-4"><a href=""></a>) <span class="sc">+</span> </span>
 <span id="cb11-5"><a href=""></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -715,17 +725,11 @@ $ smoke     &lt;lgl&gt; FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FA
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="lec-3a-data-viz-basics_files/figure-revealjs/unnamed-chunk-20-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+<p><img data-src="lec-3a-data-viz-basics_files/figure-revealjs/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
 </figure>
 </div>
 </div>
 </div>
-</div>
-<div class="fragment">
-<p>Note that the y axis still shows as a count. We will learn how to change the axis labels this week.</p>
-</div>
-<div class="fragment">
-<p><em>What type of variables can we display with a standardized bar plot?</em></p>
 </div>
 </section>
 <section id="dodged-bar-plot" class="slide level2">
@@ -733,7 +737,7 @@ $ smoke     &lt;lgl&gt; FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FA
 <div class="cell columns column-output-location" data-layout-align="center">
 <div class="column">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="fu">ggplot</span>(</span>
-<span id="cb12-2"><a href=""></a>  <span class="at">data =</span> babies,</span>
+<span id="cb12-2"><a href=""></a>  babies,</span>
 <span id="cb12-3"><a href=""></a>  <span class="fu">aes</span>(<span class="at">x =</span> smoke, <span class="at">fill =</span> parity)</span>
 <span id="cb12-4"><a href=""></a>) <span class="sc">+</span> </span>
 <span id="cb12-5"><a href=""></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"dodge"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -741,7 +745,7 @@ $ smoke     &lt;lgl&gt; FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FA
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="lec-3a-data-viz-basics_files/figure-revealjs/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+<p><img data-src="lec-3a-data-viz-basics_files/figure-revealjs/unnamed-chunk-22-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
 </figure>
 </div>
 </div>
@@ -754,13 +758,14 @@ $ smoke     &lt;lgl&gt; FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FA
 <div class="column">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">ggplot</span>(</span>
 <span id="cb13-2"><a href=""></a>  babies,</span>
-<span id="cb13-3"><a href=""></a>  <span class="fu">aes</span>(<span class="at">x =</span> smoke, <span class="at">y =</span> bwt))  <span class="sc">+</span></span>
-<span id="cb13-4"><a href=""></a>  <span class="fu">geom_boxplot</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-3"><a href=""></a>  <span class="fu">aes</span>(<span class="at">x =</span> smoke, <span class="at">y =</span> bwt)</span>
+<span id="cb13-4"><a href=""></a>)  <span class="sc">+</span></span>
+<span id="cb13-5"><a href=""></a>  <span class="fu">geom_boxplot</span>() </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="lec-3a-data-viz-basics_files/figure-revealjs/unnamed-chunk-22-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+<p><img data-src="lec-3a-data-viz-basics_files/figure-revealjs/unnamed-chunk-23-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
 </figure>
 </div>
 </div>
@@ -775,7 +780,7 @@ $ smoke     &lt;lgl&gt; FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FA
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="lec-3a-data-viz-basics_files/figure-revealjs/unnamed-chunk-23-1.png" width="960"></p>
+<p><img data-src="lec-3a-data-viz-basics_files/figure-revealjs/unnamed-chunk-24-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -796,7 +801,7 @@ $ smoke     &lt;lgl&gt; FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FA
 <div class="cell-output-display">
 <div>
 <figure>
-<p><img data-src="lec-3a-data-viz-basics_files/figure-revealjs/unnamed-chunk-24-1.png" width="960"></p>
+<p><img data-src="lec-3a-data-viz-basics_files/figure-revealjs/unnamed-chunk-25-1.png" width="960"></p>
 </figure>
 </div>
 </div>
@@ -822,7 +827,7 @@ $ smoke     &lt;lgl&gt; FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FA
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="lec-3a-data-viz-basics_files/figure-revealjs/unnamed-chunk-25-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+<p><img data-src="lec-3a-data-viz-basics_files/figure-revealjs/unnamed-chunk-26-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
 </figure>
 </div>
 </div>
@@ -833,7 +838,7 @@ $ smoke     &lt;lgl&gt; FALSE, FALSE, TRUE, FALSE, TRUE, FALSE, FALSE, FALSE, FA
 <section id="linear-relationship" class="slide level2">
 <h2>Linear Relationship</h2>
 
-<img data-src="lec-3a-data-viz-basics_files/figure-revealjs/unnamed-chunk-26-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p>Later on we will start statistical modeling during which we will numerically define the relationship between gestation and birth weight. For now we can say that this relationship looks positive and moderate.</p>
+<img data-src="lec-3a-data-viz-basics_files/figure-revealjs/unnamed-chunk-27-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p>Later on we will start statistical modeling during which we will numerically define the relationship between gestation and birth weight. For now we can say that this relationship looks positive and moderate.</p>
 </section>
 <section id="meet-palmer-penguins1" class="slide level2">
 <h2>Meet Palmer Penguins<sup>1</sup></h2>
@@ -872,11 +877,11 @@ $ year              &lt;int&gt; 2007, 2007, 2007, 2007, 2007, 2007, 2007, 2007, 
 <section id="visualizing-three-variables" class="slide level2">
 <h2>Visualizing Three Variables</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g,<span class="at">y =</span> bill_length_mm,<span class="at">color =</span> species)) <span class="sc">+</span></span>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a><span class="fu">ggplot</span>(penguins, <span class="fu">aes</span>(<span class="at">x =</span> body_mass_g, <span class="at">y =</span> bill_length_mm, <span class="at">color =</span> species)) <span class="sc">+</span></span>
 <span id="cb17-2"><a href=""></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="lec-3a-data-viz-basics_files/figure-revealjs/unnamed-chunk-30-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p>We can use color to consider a third variable</p>
+<img data-src="lec-3a-data-viz-basics_files/figure-revealjs/unnamed-chunk-31-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p>We can use color to consider a third variable</p>
 </section>
 <section id="code-style" class="slide level2">
 <h2>code style</h2>

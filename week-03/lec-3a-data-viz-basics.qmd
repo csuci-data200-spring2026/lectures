@@ -327,10 +327,10 @@ However, visualizations can often help us explore if such relationships are wort
 ## Standardized Bar Plots
 
 ```{r}
-#| output-location: column
+#| echo: false
 #| fig-align: center
 ggplot(
-  data = babies,
+  babies,
   aes(x = smoke, fill = parity)
 ) + 
   geom_bar(position = "fill")
@@ -344,13 +344,26 @@ Note that the y axis still shows as a count. We will learn how to change the axi
 
 *What type of variables can we display with a standardized bar plot?*
 
+## Standardized Bar Plots
+
+```{r}
+#| output-location: column
+#| fig-align: center
+ggplot(
+  babies,
+  aes(x = smoke, fill = parity)
+) + 
+  geom_bar(position = "fill")
+```
+
+
 ## Dodged Bar Plot
 
 ```{r}
 #| output-location: column
 #| fig-align: center
 ggplot(
-  data = babies,
+  babies,
   aes(x = smoke, fill = parity)
 ) + 
   geom_bar(position = "dodge")
@@ -363,7 +376,8 @@ ggplot(
 #| fig-align: center
 ggplot(
   babies,
-  aes(x = smoke, y = bwt))  +
+  aes(x = smoke, y = bwt)
+)  +
   geom_boxplot() 
 ```
 
@@ -452,7 +466,7 @@ ggplot(
   labs(
     x = "Gestation (days)",
     y = "Birth weight (ounces)"
-  ) +
+) +
   geom_smooth(method = "lm", se = FALSE)
 ```
 
@@ -492,7 +506,7 @@ glimpse(penguins)
 
 ```{r}
 #| fig-align: center
-ggplot(penguins, aes(x = body_mass_g,y = bill_length_mm,color = species)) +
+ggplot(penguins, aes(x = body_mass_g, y = bill_length_mm, color = species)) +
   geom_point()
 ```
 
