@@ -14,12 +14,12 @@ execute:
 #| echo: false
 library(openintro)
 library(tidyverse)
-library(palmerpenguins)
 library(fGarch) # for simulating skewed data
 
 theme_set(theme_gray(base_size = 22))
 
-babies <- babies %>% 
+babies <- 
+  babies %>% 
   mutate(
     smoke = as.logical(smoke),
     parity = as.logical(parity)
@@ -233,11 +233,12 @@ right_skewed <- rsnorm(n = 10000, mean = 0, sd = 1, xi = 20)
 
 left_skewed <- rsnorm(n = 10000, mean = 0, sd = 1, xi = -20)
 
-type <- c(
-  rep("left-skewed", 10000),
-  rep("symmetric", 10000),
-  rep("right-skewed", 10000)
-)
+type <- 
+  c(
+    rep("left-skewed", 10000),
+    rep("symmetric", 10000),
+    rep("right-skewed", 10000)
+  )
 
 x <- c(left_skewed, symmetric, right_skewed)
 
@@ -506,7 +507,7 @@ glimpse(penguins)
 
 ```{r}
 #| fig-align: center
-ggplot(penguins, aes(x = body_mass_g, y = bill_length_mm, color = species)) +
+ggplot(penguins, aes(x = body_mass, y = bill_len, color = species)) +
   geom_point()
 ```
 
