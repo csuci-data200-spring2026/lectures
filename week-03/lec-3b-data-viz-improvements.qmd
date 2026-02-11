@@ -391,13 +391,13 @@ ggplot(penguins, aes(x = bill_dep,y = bill_len, color = species)) +
 
 - Range of axes
 
-- Description that conveys meaning in the data
+- Message that the plot conveys
 
 Guides:
 
-[Cesal, 2020](https://medium.com/nightingale/writing-alt-text-for-data-visualization-2a218ef43f81)
+- [Cesal, 2020](https://medium.com/nightingale/writing-alt-text-for-data-visualization-2a218ef43f81)
 
-[Canelón & Hare, 2021 ](https://www.youtube.com/watch?v=DxLkv2iRdf8&ab_channel=csvconf)
+- [Canelón & Hare, 2021 ](https://www.youtube.com/watch?v=DxLkv2iRdf8&ab_channel=csvconf)
 
 
 ## Caption vs. Alt Text
