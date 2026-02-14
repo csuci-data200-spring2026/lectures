@@ -1,0 +1,121 @@
+---
+title: "Data 200: Lab 3 - Part 2 Solutions"
+subtitle: "Data visualization foundations"
+author: "Catalina Medina"
+format: 
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: true
+    embed-resources: true
+---
+
+In this lab we will use the `movies` dataset from the `openintro` package.
+
+```{r}
+library(openintro)
+library(tidyverse)
+
+data("movies")
+```
+
+## Question 1
+
+Look at the help documentation for the `movies` data. What year were these movies released in?
+
+**Solution:**
+
+The movies are all from 2003.
+
+
+## Question 2
+
+Use `glimpse()` on the `movies` data. How many movies are in the dataset?
+
+**Solution:**
+
+
+## Question 3
+
+Fix the code below to produce a box plot for box office earnings. Once you fix the code you can remove the `#| eval: false` from the code chunk (it prevents the code chunk from being run when the document is rendered).
+
+```{r}
+#| eval: false
+ggplot(movies, aes(x = )) +
+  geom_boxplot()
+```
+
+
+**Solution:**
+
+```{r}
+ggplot(movies, aes(x = box_office)) +
+  geom_boxplot()
+```
+
+## Question 4
+
+Produce the plot from part 1 of the lab to investigate movie ratings by genre.
+
+**Solution:**
+
+Both of these variables are categorical so we want a dodged bar plot (referring to question 8 from lab 3 part 1).
+
+```{r}
+ggplot(movies, aes(x = genre, fill = rating)) +
+  geom_bar(position = "dodge")
+```
+
+Notice how the plot is pretty hard to read? I can choose to move genre to the y-axis to make it easier to read.
+
+```{r}
+ggplot(movies, aes(y = genre, fill = rating)) +
+  geom_bar(position = "dodge")
+```
+
+## Question 5
+
+Produce a plot to visualize the relationship between critic score and box office earning.
+
+**Solution:**
+
+I did not explicitly tell you what plot to make here, so I want you to figure this out.
+First, identify what type of variable critic score is and what type box office earnings is.
+Second, identify what type of plot would be appropriate for those variables.
+Then you can write the code to produce the plot.
+
+These are both numeric variables so a scatterplot could be appropriate.
+```{r}
+ggplot(movies, aes(x = score, y = box_office)) +
+  geom_point()
+```
+
+
+## Question 6
+
+Do you see any relationship between critic score and box office earning? Another way to think about this is "If someone told me a movie's critic score, would that give me some information about what the box office earnings could be?"
+
+**Solution:**
+
+Yes, there appears to be a weak relationship between them. As one increases the other seems to generally increase.
+
+## Question 7
+
+Pose your own question about this data. Produce an appropriate plot to help answer your question.
+
+**Solution:**
+
+I chose to ask: What is the distribution of critic score overall?
+
+Critic score is a numerical variable, so I could use a histogram or box plot to look at this.
+
+```{r}
+ggplot(movies, aes(x = score)) +
+  geom_histogram()
+```
+
+
+## Version control
+
+Once you complete the lab make sure to save your file, commit your changes with an informative commit message, and push your changes to GitHub.
