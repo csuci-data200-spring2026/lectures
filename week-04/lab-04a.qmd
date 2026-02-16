@@ -100,7 +100,7 @@ Which planets would be the data frame printed by this code?
 ```{r}
 #| eval: false
 planets |>
-  filter(length_of_day > 24 & surface_pressure <= 1)
+  filter(length_of_day > 24 | surface_pressure <= 1)
 ```
 
 \vspace{1.5cm}
@@ -110,7 +110,7 @@ How many planets would be the data frame printed by this code?
 ```{r}
 #| eval: false
 planets |>
-  filter(length_of_day != "negative" | ring_system == FALSE)
+  filter(mean_temp != "negative" | ring_system == FALSE)
 ```
 
 \vspace{1.5cm}
