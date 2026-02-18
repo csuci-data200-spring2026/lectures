@@ -1,0 +1,246 @@
+---
+title: "Data 200: Lecture 4b"
+subtitle: "Data Wrangling: Aggregating and Joining"
+author: "Medina - CSU Channel Islands"
+format: 
+  revealjs:
+    theme: [sky, ../slide-style.scss]
+    slide-number: true
+execute:
+  echo: true 
+---
+
+```{r}
+#| echo: false
+library(tidyverse)
+library(janitor)
+options(scipen = 999)
+```
+
+
+```{r}
+#| echo: false
+lapd <- read_csv(here::here("data/Police_Payroll.csv")) |> 
+  janitor::clean_names() |> 
+  filter(year == 2018) |> 
+  select(
+    job_class_title,
+    employment_type,
+    base_pay) |>
+  mutate(
+    employment_type = as.factor(employment_type),
+    job_class_title = as.factor(job_class_title),
+    base_pay_level = case_when(
+      base_pay < 0 ~ "Less than 0", 
+      base_pay == 0 ~ "No Income",
+      base_pay < 100000 & base_pay > 0 ~ "Between 0 and 100K",
+      base_pay > 100000 ~ "Greater than 100K"
+    )
+  ) 
+
+
+artists <- readxl::read_xlsx("../data/spotify.xlsx", sheet = "artist")
+songs <- readxl::read_xlsx("../data/spotify.xlsx", sheet = "top_song")
+albums <- readxl::read_xlsx("../data/spotify.xlsx", sheet = "album") |> 
+  mutate(album_release_date = lubridate::ymd(album_release_date))
+```
+
+## Data
+
+```{r}
+glimpse(lapd)
+```
+
+
+# Review of Aggregating Data
+
+
+
+## Aggregating Categorical Data
+
+Categorical data are summarized with **counts** or **proportions**.
+
+##
+
+
+```{r}
+lapd |> 
+  count(employment_type)
+```
+
+. . .
+
+```{r}
+lapd |> 
+  count(employment_type) |> 
+  mutate(prop = n / sum(n))
+```
+
+## Aggregating Numerical Data
+
+Mean, median, standard deviation, variance, and quartiles are some of the numerical summaries of numerical variables. Recall
+
+
+```{r}
+summarize(
+  lapd, 
+  mean_base_pay = mean(base_pay),
+  sd_base_pay = sd(base_pay)
+)
+```
+
+# Aggregating Data By Groups
+
+## `group_by()`
+
+```{r}
+#| echo: false
+#| fig-align: center
+knitr::include_graphics("img/group-by.jpeg")
+```
+
+`group_by()` separates the data frame by the groups. Any action following `group_by()` will be completed for each group separately.
+
+- Typically used before `summarize()`
+
+## `group_by()` example question
+
+Q. What is the median salary for each employment type?
+
+## `group_by()` example alone
+
+```{r}
+lapd |> 
+  group_by(employment_type)
+```
+
+. . .
+
+- Minimal noticeable changes when `group_by()` is used alone
+
+## `group_by()` example with `summarize()`
+
+```{r}
+lapd |> 
+  group_by(employment_type) |> 
+  summarize(med_base_pay = median(base_pay))
+```
+
+. . .
+
+Versus
+
+```{r}
+lapd |> 
+  summarize(med_base_pay = median(base_pay))
+```
+
+## Summarizing multiple variables
+
+We can also remind ourselves how many staff members there were in each group.
+
+```{r}
+lapd |> 
+  group_by(employment_type) |> 
+  summarize(
+    med_base_pay = median(base_pay),
+    count = n()
+  )
+```
+
+Note that `n()` does not take any arguments. 
+
+
+
+# Data Joins
+
+## `inner_join(x, y)`
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| out-width: 45% 
+knitr::include_graphics("img/inner-join.png")
+```
+
+## `full_join(x, y)`
+
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| out-width: 45% 
+knitr::include_graphics("img/full-join.png")
+```
+
+## `left_join(x, y)`
+
+```{r}
+#| echo: false
+#| fig-align: center
+knitr::include_graphics("img/left-join.png")
+```
+
+
+## Example join data
+
+::: {.panel-tabset}
+
+## artists
+
+```{r}
+artists
+```
+
+## songs
+
+```{r}
+songs
+```
+
+## albums
+
+```{r}
+albums
+```
+
+
+
+:::
+
+## Example join strategy
+
+```{r}
+#| echo: false
+#| fig-align: center
+knitr::include_graphics("img/data_joins_spotify.png")
+```
+
+## `inner_join()` example
+
+```{r}
+inner_join(songs, artists)
+```
+
+## `full_join()` example
+
+```{r}
+full_join(songs, artists)
+```
+
+## `left_join()` example
+
+```{r}
+left_join(songs, artists)
+```
+
+## Multiple `full_join()`'s example
+
+```{r}
+full_join(songs, artists)
+```
+
+```{r}
+full_join(songs, artists, by = "name") |> 
+  full_join(albums, by = "album_name")
+```

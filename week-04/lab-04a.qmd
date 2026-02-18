@@ -86,7 +86,7 @@ planets <- planets |>
 \vspace{3cm}
 
 **Question 5**\newline
-Which planets would be the data frame printed by this code?
+Which planets would be in the data frame printed by this code?
 ```{r}
 #| eval: false
 planets |>
@@ -96,7 +96,7 @@ planets |>
 \vspace{1.5cm}
 
 **Question 6**\newline
-Which planets would be the data frame printed by this code?
+Which planets would be in the data frame printed by this code?
 ```{r}
 #| eval: false
 planets |>
@@ -106,7 +106,7 @@ planets |>
 \vspace{1.5cm}
 
 **Question 7**\newline
-How many planets would be the data frame printed by this code?
+How many planets would be in the data frame printed by this code?
 ```{r}
 #| eval: false
 planets |>
