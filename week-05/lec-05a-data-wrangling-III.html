@@ -432,7 +432,11 @@ $ tvhours &lt;int&gt; 12, NA, 2, 4, 1, NA, 3, NA, 0, 3, 2, NA, 1, NA, 1, 7, NA, 
 </section>
 <section id="what-are-factors" class="slide level2">
 <h2>What are factors?</h2>
-<p>Factors are an R storage type for categorical data which knows the levels (possibilities) for the variable and orders them</p>
+<p>Factors are an R storage type for categorical data. By storing a variable as a factor:</p>
+<ul>
+<li>R knows what possibilities to expect (aka the <strong>levels</strong>)</li>
+<li>R saves an ordering for the levels</li>
+</ul>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>gss_cat <span class="sc">|&gt;</span></span>
 <span id="cb3-2"><a href=""></a>  <span class="fu">pull</span>(partyid) <span class="sc">|&gt;</span> </span>
@@ -908,7 +912,7 @@ $ rating      &lt;dbl&gt; 8.3, 8.0, 8.2, 8.1, 8.5, 8.1, 9.0, 8.1, 8.2, 8.1, 8.2,
 </div>
 <div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href=""></a><span class="fu">now</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "2026-02-20 22:14:44 PST"</code></pre>
+<pre><code>[1] "2026-02-20 22:29:50 PST"</code></pre>
 </div>
 </div>
 </section></section>

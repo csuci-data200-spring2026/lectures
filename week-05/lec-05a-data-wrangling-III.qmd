@@ -33,7 +33,10 @@ glimpse(gss_cat)
 
 ## What are factors?
 
-Factors are an R storage type for categorical data which knows the levels (possibilities) for the variable and orders them
+Factors are an R storage type for categorical data. By storing a variable as a factor:
+
+- R knows what possibilities to expect (aka the **levels**)
+- R saves an ordering for the levels
 
 ```{r}
 gss_cat |>
