@@ -1,0 +1,593 @@
+---
+title: "Data 200: Lecture 5a"
+subtitle: "Data Wrangling: Factors, Strings, and Dates"
+author: "Medina - CSU Channel Islands"
+format: 
+  revealjs:
+    theme: [sky, ../slide-style.scss]
+    slide-number: true
+execute:
+  echo: true 
+---
+
+```{r}
+#| echo: false
+library(tidyverse)
+library(janitor)
+options(scipen = 999)
+
+theme_set(theme_bw(base_size = 22))
+```
+
+# Working with Factors
+
+## Example data:
+
+We will use some variables from the General Social Survey - an annual national research project to monitor Americans' shifting attitudes on social issues.
+
+```{r}
+library(forcats)
+data(gss_cat)
+glimpse(gss_cat)
+```
+
+## What are factors?
+
+Factors are an R storage type for categorical data which knows the levels (possibilities) for the variable and orders them
+
+```{r}
+gss_cat |>
+  pull(partyid) |> 
+  levels()
+```
+
+. . .
+
+Note the `pull()` function converts a column of the data frame into a vector, which some functions need as input.
+
+
+## All levels
+
+```{r}
+gss_cat |>
+  pull(partyid) |> 
+  levels()
+```
+
+. . .
+
+```{r}
+count(gss_cat, partyid)
+```
+
+
+## Collapsing factors
+
+We can use `case_when()` to combine levels of a factor
+```{r}
+gss_cat <- gss_cat |>
+  mutate(partyid2 = case_when(
+    partyid %in% c("Not str democrat", "Strong democrat") ~ "dem",
+    partyid %in% c("Strong republican", "Not str republican") ~ "rep",
+    partyid %in% c("Ind,near rep", "Independent", "Ind,near dem") ~ "ind",
+    partyid == "Other party" ~ "other",
+    partyid %in% c("No answer", "Don't know") ~ "missing"
+  )) |>
+  mutate(partyid2 = as.factor(partyid2))
+```
+
+##
+
+::::{.columns}
+:::{.column width="50%"}
+```{r}
+gss_cat |>
+  pull(partyid) |>
+  levels()
+```
+
+```{r}
+count(gss_cat, partyid)
+```
+:::
+
+:::{.column width="50%"}
+```{r}
+gss_cat |>
+  pull(partyid2) |>
+  levels()
+```
+
+```{r}
+count(gss_cat, partyid2)
+```
+:::
+::::
+
+
+## Reordering levels
+
+Factors defined with `as.factor()` will have levels ordered alphabetically.
+
+```{r}
+#| fig-align: center
+#| fig-height: 4
+#| fig-width: 6
+gss_cat |>
+  ggplot(aes(y = partyid2)) +
+  geom_bar()
+```
+
+## Reordering levels
+
+If we want to specify the order of the levels we can use `factor()` with `levels` instead of `as.factor()`
+```{r}
+#| fig-align: center
+#| fig-height: 4
+#| fig-width: 6
+gss_cat |>
+  mutate(partyid2 = factor(
+    partyid2,
+    levels = c("dem", "rep", "ind", "other", "missing")
+  )) |>
+ggplot(aes(y = partyid2)) +
+  geom_bar()
+```
+
+## Recoding levels
+
+We can change the names by specifying `labels`
+
+```{r}
+#| fig-align: center
+#| fig-height: 4
+#| fig-width: 6
+gss_cat |>
+  mutate(partyid2 = factor(
+    partyid2,
+    levels = c("dem", "rep", "ind", "other", "missing"),
+    labels = c("Democractic", "Republican", "Independent", "Other", "Missing")
+  )) |>
+  ggplot(aes(y = partyid2)) +
+  geom_bar()
+```
+
+
+# Working with Strings
+
+##
+
+[Friends](https://www.imdb.com/title/tt0108778)
+
+```{r echo = FALSE, message=FALSE}
+friends <- read_csv("https://csuci-data200-spring2026.github.io/lectures/data/friends.csv")
+```
+
+```{r eval = FALSE, message=FALSE}
+friends <- read_csv("https://csuci-data200-spring2026.github.io/lectures/data/friends.csv")
+```
+
+```{r}
+glimpse(friends)
+```
+
+## Ratings
+```{r}
+friends |>
+  pull(rating)
+```
+
+## If we only want a single value from the data we can specify by row number
+
+```{r}
+friends |>
+  slice(1) |>
+  pull(description)
+```
+
+. . .
+
+We are going to do some examples with the description of the first episode
+
+```{r}
+first_episode_desc <- friends |>
+  slice(1) |>
+  pull(description)
+```
+
+
+## General form of string related functions
+
+```{r}
+#| eval: false
+str_something(some_character_vector, ....)
+```
+
+
+
+## `str_length()`
+
+
+```{r}
+str_length(first_episode_desc)
+```
+
+`str_length()` returns the length of string.
+
+##
+
+Which episode has the longest description?
+
+```{r}
+friends |> 
+  pull(description) |> 
+  str_length()
+```
+
+##
+
+Which episode has the longest description?
+
+```{r}
+friends |> 
+  pull(description) |> 
+  str_length() |> 
+  max()
+```
+
+##
+
+Which episode has the longest description?
+
+```{r}
+friends |>
+  filter(str_length(description) == max(str_length(description)))
+```
+
+
+##
+
+Which episode has the longest description?
+
+```{r}
+friends |>
+  filter(str_length(description) == max(str_length(description))) |>
+  pull(description) |>
+  str_length()
+```
+
+
+## `str_to_lower()` and `str_to_upper()`
+
+```{r}
+str_to_lower(first_episode_desc)
+```
+
+. . .
+
+```{r}
+str_to_upper(first_episode_desc)
+```
+
+
+##
+
+Change all the titles to capital letters.
+
+```{r}
+friends |>
+  mutate(title = str_to_upper(title))
+```
+
+
+## `str_detect()`
+
+
+
+```{r}
+str_detect(first_episode_desc, pattern = "Rachel")
+```
+
+. . .
+
+```{r}
+str_detect(first_episode_desc, pattern = "Ross")
+```
+
+
+##
+
+How many episodes have "Phoebe" in the description?
+
+```{r}
+friends |> 
+  pull(description) |> 
+  str_detect(pattern = "Phoebe")
+```
+
+##
+
+```{r}
+friends |> 
+  pull(description) |> 
+  str_detect(pattern = "Phoebe") |>
+  sum()
+```
+
+Note the `str_detect` is returns a vector of `TRUE` and `FALSE` values.
+Using `sum()` will add up all of the `TRUE` values.
+
+
+
+##
+
+```{r}
+str_split(first_episode_desc, pattern = "the")
+```
+
+
+
+## `str_replace()`
+
+
+
+```{r}
+str_replace(first_episode_desc, pattern = "Monica", replacement = "Monika")
+```
+
+
+##
+
+**Am I expected to learn all of these string functions?**
+
+. . .
+
+- **No**, I do not expect you to learn all of the string functions, 
+- **but** I do expect you to know what a string is and that there are functions we can use to help us edit strings
+- **and** if you encounter the need for string manipulation on a project, you know enough to search for an appropriate (tidyverse) function and implement it.
+
+. . .
+
+[stringr cheatsheet](https://evoldyn.gitlab.io/evomics-2018/ref-sheets/R_strings.pdf)
+
+
+# Working with Dates
+
+##
+
+```{r}
+#| echo: false
+#| fig-align: center
+#| out.height: "95%"
+#| fig-cap: https://xkcd.com/1179/
+
+knitr::include_graphics("https://imgs.xkcd.com/comics/iso_8601.png")
+```
+
+
+##
+
+```{r}
+today()
+now()
+```
+
+
+
+# From strings to dates
+
+## Functions to convert `characters` to a `date` R storage type
+
+We help by specifying the order of the information
+
+`mdy()` - "Month" "Day" "Year"
+
+. . .
+
+`ymd()`
+
+. . .
+
+`dmy()`
+
+##
+
+```{r}
+arrival <- c("November 1st, 2005", "February 2nd 2007")
+```
+
+. . .
+
+```{r}
+str(arrival)
+```
+
+. . .
+
+```{r}
+mdy(arrival)
+```
+
+. . .
+
+```{r}
+mdy(arrival) |> 
+  str()
+```
+
+. . .
+
+the lubridate functions can identify dates in many forms
+
+```{r}
+mdy("Nov-01-2005")
+```
+
+. . .
+
+```{r}
+ymd("20251101")
+```
+
+##
+
+We can include hours, minutes and seconds too.
+
+```{r}
+mdy_hms("11/01/2005 22:05:18")
+```
+
+. . .
+
+
+```{r}
+mdy_hms("11/01/2005 22:05:18") |>
+  str()
+```
+
+
+
+
+## R storage types
+
+`date`
+
+. . .
+
+`time`
+
+. . .
+
+`date-time`
+
+. . .
+
+`POSIXct`
+
+. . .
+
+`POSIXlt`
+
+. . .
+
+*I do not expect you to know the differences between these types.*
+*I do expect you to recognize that these R storage types are for variables storing dates and or times.*
+
+
+## Including time zones
+
+```{r}
+mdy_hms(
+  "11/01/2005 22:05:18",
+  tz = "US/Pacific"
+)
+```
+
+
+
+## All time zones
+
+```{r}
+OlsonNames()
+```
+
+
+# Time spans
+
+## Durations
+
+```{r}
+some_date <- ymd("1911/05/31")
+
+some_date + ddays(3)
+```
+
+. . .
+
+```{r}
+some_date + ddays(3) + dseconds(4)
+```
+
+##
+
+```{r}
+some_time <- mdy_hms("10/31/2020 10:05:18", tz = "US/Pacific")
+
+some_time
+```
+
+. . .
+
+```{r}
+some_time + ddays(1)
+```
+
+. . .
+
+Lubridate package takes daylight savings into account.
+
+
+
+# Components of Date and Time
+
+
+
+## Extracting Year
+
+```{r}
+apollo11_return <- ymd_hm("1969/07/21 17:54")
+apollo11_return
+```
+
+. . .
+
+```{r}
+year(apollo11_return)
+```
+
+
+## Extracting Month
+
+```{r}
+month(apollo11_return)
+```
+
+. . .
+
+```{r}
+month(apollo11_return, label = TRUE)
+```
+
+
+
+## Extracting Day and Day of the Week
+
+```{r}
+day(apollo11_return)
+```
+
+. . .
+
+```{r}
+wday(apollo11_return)
+```
+
+. . .
+
+```{r}
+wday(apollo11_return, label = TRUE)
+```
+
+##
+
+**Am I expected to learn all of these date functions?**
+
+. . .
+
+- **No**, I do not expect you to learn all of the date functions, 
+- **but** I do expect you to know that dates have their own R storage types and that there are functions to help us handle dates,
+- **and** if you encounter the need for date manipulation on a project, you know enough to search for an appropriate (tidyverse) function and implement it.
+
+. . .
+
+[lubridate cheatsheet](https://rstudio.github.io/cheatsheets/html/lubridate.html)
