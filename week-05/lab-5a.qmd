@@ -60,7 +60,7 @@ For each column, write the variable type and the most appropriate R storage type
 \vspace{0.75cm}
 
 **Question 2**\newline
-You should have identified that one of the columns would be best stored as a `factor`. Why would it be better stored as a `date` rather than a `character`?
+You should have identified that one of the columns would be best stored as a `factor`. Why would it be better stored as a `factor` rather than a `character`?
 
 \vspace{2.25cm}
 
