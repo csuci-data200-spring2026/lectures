@@ -1,0 +1,92 @@
+---
+title: "Independent Project Instructions"
+format: 
+  html:
+    echo: false
+    message: false
+    warning: false
+    toc: true
+    embed-resources: true
+---
+
+## Project objective
+
+In this project you will be working with data on California students that experienced homelessness in the 2024-2025 academic year. We will explore this data at the county level and investigate the percent of students that experienced homelessness in each California county. 
+
+You get to do this data analysis from start to finish, downloading the data, cleaning it, and producing a table, summary statistics, and plots. After you finish your analysis there are a few reflection comments to address. All of your work should be done in the analysis.qmd file. Unlike with our homework and labs, I set `echo: false` at the top of your file so when you render your analysis.qmd file you will get a report without any code showing.
+
+Once you complete your data analysis, you can get extra credit by improving your report beyond the requirements. This is a way to follow your curiosity and express your creativity. You could choose to examine another variable in the dataset, improve your plots beyond what the instruction specify, or create new plots!
+
+
+## Getting the data
+
+1. Visit <https://www.cde.ca.gov/ds/ad/fileshse.asp> and click `File Structure: Homeless Student Enrollment Data` under "File Structure". Scroll through the data dictionary and familiarize yourself with what variables are stored in the data.
+2. Visit <https://www.cde.ca.gov/ds/ad/fileshse.asp> and download the `hse2425` data file under "File Name" to get the data for the 2024-2025 academic year.
+3. Create a folder in your repo called "data", and move your data file into that folder.
+4. Open your README.md file and add a brief description and link of where you got the data from.
+
+## Data Wrangling 
+
+### Importing the data
+
+1. Start by loading the janitor, viridis, knitr, and tidyverse packages in the provide R chunk.
+2. Read in your data and save it into an object named `enrollment_og`. Notice that this data file is a text file (.txt) extension instead of a csv. You will need to use the `read_delim()` function.
+3. Make the column names comply with tidyverse style guide rules.
+4. Check out your data file using functions like `glimpse()`, `head()`, and `tail()` to get a better idea of what you are working with. 
+
+## Cleaning the data
+
+This dataset is complex because it stores data aggregated at different levels (e.g., race/ethnicity, student group, grade level, etc...). We are going to work with this data at the county level. 
+
+1. Filter the data so we only have rows where: data is aggregated at the county level, for all schools regardless of charter status, for all schools regardless of DASS status, and where the reporting category is "Total". You will need to look at the data dictionary from the very first step to decide which four variables you need to filter by.
+2. Create a new variable called `homeless_student_enrollment_percent` that records percent of enrolled students that are homeless. Again, you will have to look at the data dictionary to decide what variables you will need to divide.
+3. At this point you should have a data set with 58 observations and 24 variables. Save the cleaned dataset into an object named `enrollment`.
+4. Write a sentence using inline R code to describe how many rows and columns were in your original dataset, and how many rows and columns are are in your cleaned dataset.
+
+## Data analysis
+
+For this data analysis we will produce four components: a table, a histogram, summary statistics, and a map.
+
+### Table
+
+1. Subset the `enrollment` data to only contain county names, enrollment total, and the new `homeless_student_enrollment_percent` variable.
+2. Instead of saving over your `enrollment` data, pipe the subsetted data from the previous step into the `kable()` function. When you render your document, this function formats its contents into a table.
+
+### Histogram
+
+1. Create a histogram of the percent of enrolled students that experienced homelessness by county.
+2. Use the `labs()` function to specify informative axis labels, title, alternative text, and a caption with the source of the data "Homeless Children and Youth data from the California Department of Education".
+
+### Summary statistics
+
+1. For the percent of enrolled students that are homeless variable, calculate and report the mean, median, standard deviation, and interquartile range (use the `IQR()` function for this one). 
+
+### Map
+
+In order to create the map we have to first prepare the data to include latitude and longitude values for California counties.
+
+1. Use the `map_data("county", region = "california")` function to load in a dataset of California geography. Save this dataset into an object with a name of your choice.
+2. We want to join this map data with our enrollment data by county name, but the county names are capitalized differently in each dataset. Convert the county names to title case and store them into a column named `county_name`.
+3. Join the cleaned map data with the cleaned enrollment data, keeping all rows and columns. Save the joined dataset into an object with a name of your choice.
+
+Now we are ready to make a map!
+
+1. Call `ggplot()` on our newly joined dataset from the previous step, mapping: the `long` variable to the x-axis, the `lat` variable to the y-axis, the `county_name` variable to the `group` aesthetic, and our percent of enrolled students that are homeless variable to the `fill` aesthetic.
+2. Add a layer to your plot with `geom_polygon(color = "white")`. The `geom_polygon()` tells ggplot to make shapes, or in our case, counties.
+
+Awesome, we have a map! But it is kind of ugly...
+
+1. Add a layer to change the theme remove all of the background and axes using the `theme_void()` function.
+2. Add a layer to use more colorblind friendly colors by specifying `scale_fill_viridis(direction = -1)`.
+
+If everything has gone well with data cleaning and plotting, your map should look like this:
+
+![](map.png)
+
+## Reflection and submission
+
+1. Answer the reflection questions and if you used an AI tool, provide the prompts used.
+2. Render your document and view your report. Make sure it you like how it appears (aka if you used `glimpse()` or some other function that prints output, consider commenting out the code so it does not clutter your report.) Your report is meant to look nice and be presentable.
+2. Commit, pull, push your changes to GitHub. Part of your grade will be concerned with if you made at least three meaningful commits with informative commit messages while you worked.
+3. Submit your rendered html file to CI Learn.
+
