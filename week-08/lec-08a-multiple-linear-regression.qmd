@@ -543,11 +543,8 @@ When comparing models with multiple predictors we rely on Adjusted $R^2$
 
 
 ```{r}
-glance(penguins_model_3)
-```
-
-```{r}
-glance(penguins_model_4)
+glance(penguins_model_1)
+glance(penguins_model_2)
 ```
 
 
