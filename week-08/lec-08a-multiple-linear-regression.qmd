@@ -452,7 +452,7 @@ model_4_b0 <- round(
   )
 model_4_b1 <- round(
   penguins_model_4$coefficients["flipper_len"], 
-  digits = digits
+  digits = 2
   )
 model_4_b2 <- round(
   penguins_model_4$coefficients["speciesChinstrap"], 
@@ -464,7 +464,7 @@ model_4_b3 <- round(
   )
 model_4_b4 <- round(
   penguins_model_4$coefficients["body_mass"], 
-  digits = digits
+  digits = 4
   )
 ```
 
@@ -512,7 +512,7 @@ We used RMSE to compare models, there are other commonly used metrics!
 
 ## $R^2$
 
-$R^2$ is the percent of variation on $Y$ explained by model.
+$R^2$ is the proportion of variation in $Y$ explained by model.
 
 - Informs about how well the model fits the data
 - Bounded between 0 and 1
@@ -528,13 +528,9 @@ glance(penguins_model_4)
 ```{r}
 #| echo: false
 model_1_eval <- glance(penguins_model_1)
-model_4_eval <- glance(penguins_model_4)
 ```
 
-
 Model 1 explains `r 100 * round(model_1_eval$r.squared, 2)`% of the variation in Bill Depth.
-
-Model 4 explains `r 100 * round(model_4_eval$r.squared, 2)`% of the variation in Bill Depth.
 
 ## Adjusted $R^2$
 
@@ -548,7 +544,7 @@ When comparing models with multiple predictors we rely on Adjusted $R^2$
 
 
 ```{r}
-glance(penguins_model_1)
+glance(penguins_model_3)
 ```
 
 ```{r}

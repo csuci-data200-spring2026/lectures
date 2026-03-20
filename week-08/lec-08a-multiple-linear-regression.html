@@ -914,18 +914,18 @@ Medina - CSU Channel Islands
 5 body_mass         0.00124  0.000125      9.93 1.45e-20</code></pre>
 </div>
 </div>
-<p>Predicted Bill Depth = 7.7 + 0 <span class="math inline">\(\times\)</span> Flipper Length<br>
+<p>Predicted Bill Depth = 7.7 + 0.03 <span class="math inline">\(\times\)</span> Flipper Length<br>
 + -0.2 <span class="math inline">\(\times\)</span> I(Species = Chinstrap)<br>
 + -5.9 <span class="math inline">\(\times\)</span> I(Species = Gentoo)<br>
-+ 0 <span class="math inline">\(\times\)</span> Body Mass</p>
++ 0.0012 <span class="math inline">\(\times\)</span> Body Mass</p>
 </section>
 <section id="assessing-model-4-fit" class="slide level2">
 <h2>Assessing Model 4 fit</h2>
 <p>Estimated Model 4:</p>
-<p><strong>Predicted Bill Depth = 7.7 + 0 <span class="math inline">\(\times\)</span> Flipper Length</strong><br>
+<p><strong>Predicted Bill Depth = 7.7 + 0.03 <span class="math inline">\(\times\)</span> Flipper Length</strong><br>
 <strong>+ -0.2 <span class="math inline">\(\times\)</span> I(Species = Chinstrap)</strong><br>
 <strong>+ -5.9 <span class="math inline">\(\times\)</span> I(Species = Gentoo)</strong><br>
-<strong>+ 0 <span class="math inline">\(\times\)</span> Body Mass</strong></p>
+<strong>+ 0.0012 <span class="math inline">\(\times\)</span> Body Mass</strong></p>
 <div class="fragment">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">rmse</span>(penguins_model_4, <span class="at">data =</span> penguins)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -987,7 +987,7 @@ Medina - CSU Channel Islands
 </section>
 <section id="r2" class="slide level2">
 <h2><span class="math inline">\(R^2\)</span></h2>
-<p><span class="math inline">\(R^2\)</span> is the percent of variation on <span class="math inline">\(Y\)</span> explained by model.</p>
+<p><span class="math inline">\(R^2\)</span> is the proportion of variation in <span class="math inline">\(Y\)</span> explained by model.</p>
 <ul>
 <li>Informs about how well the model fits the data</li>
 <li>Bounded between 0 and 1</li>
@@ -1015,7 +1015,6 @@ Medina - CSU Channel Islands
 </div>
 </div>
 <p>Model 1 explains 34% of the variation in Bill Depth.</p>
-<p>Model 4 explains 81% of the variation in Bill Depth.</p>
 </section>
 <section id="adjusted-r2" class="slide level2">
 <h2>Adjusted <span class="math inline">\(R^2\)</span></h2>
@@ -1026,12 +1025,12 @@ Medina - CSU Channel Islands
 <h2>Adjusted <span class="math inline">\(R^2\)</span></h2>
 <p>When comparing models with multiple predictors we rely on Adjusted <span class="math inline">\(R^2\)</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="fu">glance</span>(penguins_model_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href=""></a><span class="fu">glance</span>(penguins_model_3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 1 × 12
-  r.squared adj.r.squared sigma statistic  p.value    df logLik   AIC   BIC
-      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
-1     0.341         0.339  1.61      176. 1.23e-32     1  -646. 1298. 1310.
+  r.squared adj.r.squared sigma statistic   p.value    df logLik   AIC   BIC
+      &lt;dbl&gt;         &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1     0.756         0.754 0.980      349. 4.07e-103     3  -476.  963.  982.
 # ℹ 3 more variables: deviance &lt;dbl&gt;, df.residual &lt;int&gt;, nobs &lt;int&gt;</code></pre>
 </div>
 </div>
