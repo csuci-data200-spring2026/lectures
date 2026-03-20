@@ -1,6 +1,6 @@
 ---
 title: "Data 200: Lecture 7a"
-subtitle: "Introduction to Machine Learning"
+subtitle: "Introduction to Machine Learning: Simple linear regression"
 author: "Medina - CSU Channel Islands"
 format: 
   revealjs:

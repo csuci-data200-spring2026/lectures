@@ -101,7 +101,7 @@ movies |>
 Now suppose we add a regression line and the fitted model is:
 
 $$
-\widehat{box\_office} = -50 + 2(score)
+\widehat{BoxOffice} = -50 + 2(CriticScore)
 $$
 
 (Units: box_office is in **millions of dollars**.)
@@ -139,7 +139,7 @@ Fill in the table below for 4 movies:
 |:----|:----|:------|:------|:------|
 | A | 60 | 40 | | |
 | B | 75 | 130 | | |
-| C | 50 | 20 | | |
+| C | 50 | 45 | | |
 | D | 90 | 110 | | |
 | E | 75 | 100 | | |
 
@@ -171,7 +171,7 @@ Using the table from Question 6, which one was predicted most accurately (add a 
 
 ## Question 10
 
-Compute Root Mean Squared Error (RMSE) for these four observations with our linear model. Write out the math here, then you can plug it into a calculator to get a final value.
+Compute Root Mean Squared Error (RMSE) for these five observations with our linear model. Write out the math here, then you can plug it into a calculator to get a final value.
 
 \vspace{2in}
 
