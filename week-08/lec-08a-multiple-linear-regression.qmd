@@ -522,7 +522,6 @@ $R^2$ is the proportion of variation in $Y$ explained by model.
 
 ```{r}
 glance(penguins_model_1)
-glance(penguins_model_4)
 ```
 
 ```{r}
