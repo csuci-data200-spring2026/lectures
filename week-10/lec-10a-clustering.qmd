@@ -98,7 +98,7 @@ Suppose a streaming service wants to understand its customer base better to tail
 
 You decide on $k$, the number of clusters/groups and the algorithm will:
 
-2. Choose 3 random centers, starting points
+2. Choose $k$ random centers (starting points)
 3. Group each observation  with the center it is closest to
 4. Calculate new centers based on clusters
 5. Repeat steps 3-4 until not much is changing
