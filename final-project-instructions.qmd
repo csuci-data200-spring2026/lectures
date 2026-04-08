@@ -1,0 +1,119 @@
+---
+title: "Data 200 Final Project Instructions"
+format: 
+  html:
+    embed-resources: true
+    toc: true
+    toc-depth: 4
+---
+
+The final project will be a data analysis done on real data of your choosing. The teams will be composed of three people and will consist of four parts:
+
+- Initial project proposal (20 points possible)
+- Revised project proposal (20 points possible)
+- Final project presentation (40 points possible)
+- Final project peer evaluations (20 points possible)
+
+All work done for your final project should be in the final project repository that I will make for each team. Your final project (100 total points possible) is worth 25% of your grade for the course.
+
+You may use AI for debugging or explanation, but not to generate your code or do parts of your project for you. You must be able to explain all code used.
+
+## Initial Project Proposal
+
+The purpose of the initial project proposal is for your team to identify a dataset you want to explore and a plan for the investigation.
+
+### Rubric
+
+| Component | Description | Points Possible | Points Earned |
+|:----------|:-----------------------------------|:--|:--|
+| **Dataset quality** | Dataset meets requirements: at least 100 observations, at least 10 meaningful variables (e.g., `year` and `month` would only count as one meaningful variable), real data appropriate for analysis, and not previosly used in class. | 3 | |
+| **Version control** | All team members make multiple meaningful commits with clear, concise messages. | 2 | |
+| **Repo structure** | Final project repository contains a file named initial-proposal.qmd and a folder called `data` containing your dataset and a `README.md` file | 1 |
+| **Data folder README** | `README.md` in `data` folder should contain a description of the data and where it came from, including working source link(s). | 2 | |
+| **Project motivation** | `initial-proposal.qmd` file contains clear and concise explanation of why the dataset/topic is interesting and worth investigating. | 2 | |
+| **Research questions** | `initial-proposal.qmd` file contains research questions (minimum of 4). You will not be expected to complete all 4 for the final project, I will help you narrow down which ones are doable for the final. | 2 | |
+| **Proposed methods** | `initial-proposal.qmd` file contains a proposed method for each research question (e.g., visualization, comparison, model) that is appropriate for the question. | 4 | |
+| **Data readiness (code)** | `initial-proposal.qmd` file contains a code chunk that appropriately imports the data and uses `glimpse()` to preview data and show structure. Code runs without errors and follows tidyverse style. | 3 | |
+| **Team meeting plan** | `initial-proposal.qmd` file contains a specific plan for weekly meeting(s) of when you all will meet to work on the project starting week 14. | 1 | |
+
+
+### Possible Sources for locating data
+
+I encourage you to attend office hours, prior to the initial project proposal deadline.
+I can possibly provide more specific places to find data depending on your interest, and I can confirm if you dataset is well suited for the project and meets requirements.
+
+Unreliable data sources like Kaggle are not allowed, unless you can track a verifiable source. 
+You can find data from other sources, but here are some recommendations:
+
+[UCI Machine Learning Repository](https://archive.ics.uci.edu/ml/index.php)
+
+[Harvard Dataverse](https://dataverse.harvard.edu/)
+
+[Data.gov](https://www.data.gov/)
+
+[US Government Data](https://sctyner.github.io/static/presentations/Misc/GraphicsteamISU/2018-11-16-us-govt-data.html)
+
+[California Open Data](https://data.ca.gov/)
+
+[Los Angeles Open Data](https://data.lacity.org/browse)
+
+[NYC OpenData](https://opendata.cityofnewyork.us/)
+
+[Data is Plural](https://docs.google.com/spreadsheets/d/1wZhPLMCHKJvwOkP4juclhjFgqIY8fQFMemwKL2c64vk/edit#gid=0)
+
+[UN data](http://data.un.org/)
+
+[Million Song Dataset](http://millionsongdataset.com/)
+
+[IPUMS survey data from around the world](https://ipums.org/)
+
+[CORGIS: The Collection of Really Great, Interesting, Situated Datasets](https://think.cs.vt.edu/corgis/csv/)
+
+[PISA data](https://www.oecd.org/pisa/data/)
+
+[Museum of Modern Art](https://github.com/MuseumofModernArt/collection)
+
+[Google Dataset Search](https://datasetsearch.research.google.com/)
+
+
+## Revised project proposal
+
+Revised proposal should include:
+
+- Improvements to any component of your initial project proposal that did not receive full marks. 
+- More detailed proposal of methods
+- Preliminary investigation
+- Feedback reflection (what changed + why)
+
+*Rubric to be determined*
+
+
+## Final project presentation
+
+You will present your final project in teams during our scheduled final time: May 18th from 1-3pm, in person.
+
+Your presentation should:
+
+- Be between 10-12 minutes in length, with all teammates participating.
+- Be produced by a single Quarto document, including code to produce any results shown in presentation.
+- Not contain visible code. The option `echo: false` should be set so code is not displayed when rendered.
+- Include:
+  - Research question(s)
+  - Data description & source
+  - Data cleaning / preparation (description, not code)
+  - Exploratory data analysis (visualizations required)
+  - Statistical or computational methods
+  - Key findings (e.g, clusters identified, predictive model and appropriate evaluation metric, inference results)
+  - Conclusion
+    - Mention limitations (e.g., were there a lot of NA's?, did the model not do well?, what additional data do you wish you had)
+    - Summarize your project and key takeaways
+
+*Rubric to be determined*
+
+
+## Final project peer evaluations
+
+Each student will submit peer evaluations for each team’s project, excluding their own. 
+These evaluations will be done during the final time.
+
+*Rubric to be determined*
