@@ -312,7 +312,7 @@ Over the next couple of weeks we will be learning how to get a margin of error!
 
 Ideally, we want our sample to be representative of our population of interest, so we can have a better estimate for the population parameter
 
-- To achieve this we want a **random sample** from our population, meaning everyone in the population had an equal chance of being in our sample
+- To achieve this we want a **simple random sample** from our population, meaning everyone in the population had an equal chance of being in our sample
 
 ## 
 
