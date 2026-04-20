@@ -1,0 +1,170 @@
+---
+title: ""
+format: 
+  pdf:
+    echo: true
+    message: false
+    warning: false
+    geometry:
+      - bottom=1in
+header-includes:
+  - \usepackage{lastpage}
+  - \usepackage{fancyhdr}
+  - \pagestyle{fancy}
+  - \fancyhf{}
+  - \fancyhead[L]{Data 200 Spring 2026 -- \textbf{Lab 12a}}
+  - \fancyhead[R]{Sample proportions and sample means}
+  - \fancyfoot[C]{\thepage\ of \pageref{LastPage}}
+  - \renewcommand{\headrulewidth}{0.4pt}
+---
+
+```{r}
+#| echo: false
+library(patchwork)
+library(knitr)
+library(tidyverse)
+```
+
+
+\newcommand{\blank}{\rule{2.5cm}{0.15mm}}
+
+**Name**:
+
+Instead of a lab, today we have structured notes for today's lecture.
+
+# Warm-Up: Prior Knowledge (Review from Last Week)
+
+Fill in definitions for the terms we learned last week:
+
+- Population:
+
+\vspace*{0.5in}
+
+- Population parameter:
+
+\vspace*{0.5in}
+
+- Sample:
+
+\vspace*{0.5in}
+
+- Sample statistic:
+
+\vspace*{0.5in}
+
+**Key idea:**  
+
+In statistical inference we do not have data for the entire population of interest, so we use:
+
+a ____________________ as an estimate for a  _____________________.
+
+
+# Today's Goal
+
+> We will understand how **sample statistics vary** from sample to sample, and why that matters for inference.
+
+Today we will have data for our entire population of interest. We will draw a samples from this population to study how reliable our estimation is, and how to increase precision of our estimate.
+
+By the end of class, you should be able to:
+
+- Explain why sample statistics change
+- Describe a **sampling distribution**
+
+# Why Do We Sample?
+
+Real-world data (identify these for the example from class slide 5):
+
+- Population:
+
+\vspace{0.5in}
+
+- Population parameter: 
+
+\vspace{0.5in}
+
+
+### Think:
+
+(*After slide 7*) Why don't we just always use the entire population?
+
+\vspace*{1in}
+
+# Sampling Variability
+
+(*After slide 12*) Fill in:
+
+- If we were to collect **multiple samples** of size $n=40$, the statistic will:
+
+\vspace*{0.5in}
+
+- This happens because:
+
+\vspace*{0.5in}
+
+- We can use simulations to study the ______________________, this provides us with an understanding of how accurate and precise the sample statistic is as an estimate for the population parameter.
+
+# Sampling distribution for a mean
+
+The mean salary was actually ________________ for all full time LAPD workers in 2018, and with our first sample of 50 workers we would have estimated it to be ________________.
+
+
+# What Does the sampling distribution Look Like?
+
+We simulated 20,000 separate samples under different conditions, different sample sizes ($n$). Describe the features of the sampling distributions.
+
+- Shape (symmetric or skewed?):
+
+\vspace{0.5cm}
+
+- Center:
+
+\vspace{0.5cm}
+
+- Spread depends on:   
+
+\vspace{0.5cm}
+
+# Summarizing
+
+In this lecture we learned that a ______________________ is a good estimate for a population proportion. To increase the precision (lower the standard deviation) of our estimate we want sample with **more** / **fewer** observations (circle one).
+
+\vspace{0.5cm}
+
+In this lecture we learned that a ______________________ is a good estimate for a population mean. To increase the precision (lower the standard deviation) of our estimate we want sample with **more** / **fewer** observations (circle one).
+
+
+# Bridge to Bootstrapping (week 13)
+
+In real life we usually have:  
+
+- [ ] Data from the entire population of interest
+- [ ] Many samples
+- [ ] Only one sample  
+
+
+# Knowledge Check (Preparation for Lecture Quiz)
+
+1. What is the difference between a population parameter and a sample statistic?
+
+\vspace{1in}
+  
+2. Why can different samples from the same population produce different sample proportions (or different sample means)?
+
+\vspace{1in}
+  
+3. What happens when sample size increases?
+
+\vspace{1in}
+
+  
+4. What is a sampling distribution?
+  
+\vspace{1in}
+
+
+5. Why is the sampling distribution helpful?
+
+\vspace{1in}
+  
+
+  
