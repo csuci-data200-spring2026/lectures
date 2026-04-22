@@ -1,5 +1,5 @@
 ---
-title: "Data 200: Lecture 12"
+title: "Data 200: Lecture 12a"
 subtitle: "Sampling disitribution"
 author: "Medina - CSU Channel Islands"
 format: 
@@ -37,7 +37,7 @@ This week we will study a sample statistic can vary from sample to sample
 For this lecture we will revisit the LA Police Department payroll data, but only focus projected annual salary for full time workers in 2018:
 
 ```{r}
-lapd <- read_csv(here::here("data", "Police_Payroll.csv")) |> 
+lapd <- read_csv("https://csuci-data200-spring2026.github.io/lectures/data/Police_Payroll.csv") |> 
   clean_names() |> 
   filter(year == 2018 & employment_type == "Full Time") |> 
   select(row_id, projected_annual_salary, job_class_title) |> 

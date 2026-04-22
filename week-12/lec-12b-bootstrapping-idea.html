@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="lec-12a-sampling-distribution_files/libs/clipboard/clipboard.min.js"></script>
-<script src="lec-12a-sampling-distribution_files/libs/quarto-html/tabby.min.js"></script>
-<script src="lec-12a-sampling-distribution_files/libs/quarto-html/popper.min.js"></script>
-<script src="lec-12a-sampling-distribution_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="lec-12a-sampling-distribution_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="lec-12a-sampling-distribution_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="lec-12a-sampling-distribution_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="lec-12a-sampling-distribution_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="lec-12b-bootstrapping-idea_files/libs/clipboard/clipboard.min.js"></script>
+<script src="lec-12b-bootstrapping-idea_files/libs/quarto-html/tabby.min.js"></script>
+<script src="lec-12b-bootstrapping-idea_files/libs/quarto-html/popper.min.js"></script>
+<script src="lec-12b-bootstrapping-idea_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="lec-12b-bootstrapping-idea_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="lec-12b-bootstrapping-idea_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="lec-12b-bootstrapping-idea_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="lec-12b-bootstrapping-idea_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.4.555">
 
   <meta name="author" content="Medina - CSU Channel Islands">
-  <title>Data 200: Lecture 12a</title>
+  <title>Data 200: Lecture 12b</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="lec-12a-sampling-distribution_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="lec-12a-sampling-distribution_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="lec-12b-bootstrapping-idea_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="lec-12b-bootstrapping-idea_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -95,11 +95,11 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="lec-12a-sampling-distribution_files/libs/revealjs/dist/theme/quarto.css">
-  <link href="lec-12a-sampling-distribution_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="lec-12a-sampling-distribution_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="lec-12a-sampling-distribution_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="lec-12a-sampling-distribution_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="lec-12b-bootstrapping-idea_files/libs/revealjs/dist/theme/quarto.css">
+  <link href="lec-12b-bootstrapping-idea_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="lec-12b-bootstrapping-idea_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="lec-12b-bootstrapping-idea_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="lec-12b-bootstrapping-idea_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
 
   .callout {
@@ -391,8 +391,8 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Data 200: Lecture 12a</h1>
-  <p class="subtitle">Sampling disitribution</p>
+  <h1 class="title">Data 200: Lecture 12b</h1>
+  <p class="subtitle">Bootstrapping to approximate the sampling distribution</p>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -405,468 +405,189 @@ Medina - CSU Channel Islands
 </section>
 <section id="section" class="slide level2">
 <h2></h2>
-<p>Last week we talked about:</p>
+<p>Last class our population of interest was all full time workers at the LAPD in 2018.</p>
 <ul>
-<li>population</li>
-<li>population parameter</li>
-<li>sample</li>
-<li>sample statistic</li>
-<li>the idea that we want to use a sample statistic as an estimate for an unknown population parameter</li>
+<li>We actually had data for everyone in the population, so we were able to get the sampling distribution for a sample statistic.</li>
+<li>Typically we don’t data for entire population, … <strong>so how do we know how much our sample statistics will vary from the population parameter?</strong></li>
 </ul>
-<p>This week we will study a sample statistic can vary from sample to sample</p>
-</section>
-<section id="data" class="slide level2">
-<h2>Data</h2>
-<p>For this lecture we will revisit the LA Police Department payroll data, but only focus projected annual salary for full time workers in 2018:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>lapd <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://csuci-data200-spring2026.github.io/lectures/data/Police_Payroll.csv"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb1-2"><a href=""></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb1-3"><a href=""></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2018</span> <span class="sc">&amp;</span> employment_type <span class="sc">==</span> <span class="st">"Full Time"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb1-4"><a href=""></a>  <span class="fu">select</span>(row_id, projected_annual_salary, job_class_title) <span class="sc">|&gt;</span> </span>
-<span id="cb1-5"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">over_100k =</span> <span class="fu">case_when</span>(</span>
-<span id="cb1-6"><a href=""></a>    projected_annual_salary <span class="sc">&gt;</span> <span class="dv">100000</span> <span class="sc">~</span> <span class="cn">TRUE</span>,</span>
-<span id="cb1-7"><a href=""></a>    projected_annual_salary <span class="sc">&lt;=</span> <span class="dv">100000</span> <span class="sc">~</span> <span class="cn">FALSE</span></span>
-<span id="cb1-8"><a href=""></a>  ))</span>
-<span id="cb1-9"><a href=""></a></span>
-<span id="cb1-10"><a href=""></a><span class="fu">glimpse</span>(lapd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Rows: 14,664
-Columns: 4
-$ row_id                  &lt;chr&gt; "8-1000027830ctFu", "8-1000194958ctFu", "8-100…
-$ projected_annual_salary &lt;dbl&gt; 124966.80, 142902.72, 155117.52, 79573.68, 114…
-$ job_class_title         &lt;chr&gt; "Police Detective II", "Police Sergeant I", "P…
-$ over_100k               &lt;lgl&gt; TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE, TRU…</code></pre>
-</div>
+<div class="fragment">
+<p><strong>We will use bootstrapping!</strong></p>
 </div>
 </section>
 <section>
-<section id="what-proportion-of-full-time-workers-in-he-lapd-in-2018-made-over-100000" class="title-slide slide level1 center">
-<h1>What proportion of full time workers in he LAPD in 2018 made over $100,000?</h1>
+<section id="review-sampling-distribution-for-mean-salary-n100" class="title-slide slide level1 center">
+<h1>Review sampling distribution for mean salary (<span class="math inline">\(n=100\)</span>)</h1>
 
 </section>
 <section id="study-components" class="slide level2">
-<h2>Study components</h2>
-<p><strong>Research question</strong>: What proportion of full time workers in he LAPD in 2018 made over $100,000?</p>
-<p><strong>Population of interest</strong>:</p>
-<p><strong>Population parameter</strong>:</p>
-</section>
-<section id="study-components-1" class="slide level2">
-<h2>Study components</h2>
-<p><strong>Research question</strong>: What proportion of full time workers in the LAPD in 2018 made over $100,000?</p>
-<p><strong>Population of interest</strong>: people working full time for the LAPD in 2018</p>
-<p><strong>Population parameter</strong>: proportion of people working full time for the LAPD in 2018 that made over $100,000</p>
-</section>
-<section id="population-parameter" class="slide level2">
-<h2>Population parameter</h2>
-<p><strong>Population parameter</strong>: proportion of people working full time for the LAPD in 2018 that made over $100,000</p>
-<p>Since we have data for everyone in our population of interest, we can calculate the population proportion:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>lapd <span class="sc">|&gt;</span> </span>
-<span id="cb3-2"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">sample_prop_over_100k =</span> <span class="fu">sum</span>(over_100k <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">nrow</span>(lapd)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 1
-  sample_prop_over_100k
-                  &lt;dbl&gt;
-1                 0.642</code></pre>
-</div>
-</div>
-<div class="fragment">
-<p>Population proportion = 0.642</p>
-</div>
-</section>
-<section id="sampling" class="slide level2">
-<h2>Sampling</h2>
-<p>In reality, we often do not have data for everyone in our population of interest, so we collect a sample instead.</p>
-<p>We will use the <code>rep_sample_n()</code> function from the <code>infer</code> package to randomly sample 50 people</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">library</span>(infer)</span>
-<span id="cb5-2"><a href=""></a></span>
-<span id="cb5-3"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">20260420</span>)</span>
-<span id="cb5-4"><a href=""></a></span>
-<span id="cb5-5"><a href=""></a><span class="fu">rep_sample_n</span>(lapd, <span class="at">size =</span> <span class="dv">50</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 50 × 5
-# Groups:   replicate [1]
-   replicate row_id           projected_annual_salary job_class_title  over_100k
-       &lt;int&gt; &lt;chr&gt;                              &lt;dbl&gt; &lt;chr&gt;            &lt;lgl&gt;    
- 1         1 8-1743167349ctFu                 111499. Police Officer … TRUE     
- 2         1 8-1109167827ctFu                  85441. Police Officer … FALSE    
- 3         1 8-472788583ctFu                   63371. Police Officer I FALSE    
- 4         1 8-3411015386ctFu                  80973. Police Officer … FALSE    
- 5         1 8-4008444497ctFu                 103440. Police Officer … TRUE     
- 6         1 8-3565021194ctFu                 112042. Police Officer … TRUE     
- 7         1 8-1926869781ctFu                 126178. Police Detectiv… TRUE     
- 8         1 8-1581898424ctFu                  63371. Police Officer I FALSE    
- 9         1 8-1347462821ctFu                 132851. Police Detectiv… TRUE     
-10         1 8-1956881461ctFu                 128600. Police Sergeant… TRUE     
-# ℹ 40 more rows</code></pre>
-</div>
-</div>
-</section>
-<section id="sample-1" class="slide level2">
-<h2>Sample 1</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>sample_1 <span class="ot">&lt;-</span> <span class="fu">rep_sample_n</span>(lapd, <span class="at">size =</span> <span class="dv">50</span>)</span>
-<span id="cb7-2"><a href=""></a></span>
-<span id="cb7-3"><a href=""></a>sample_1 <span class="sc">|&gt;</span> </span>
-<span id="cb7-4"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">sample_prop_over_100k =</span> <span class="fu">sum</span>(over_100k <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">nrow</span>(sample_1)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 2
-  replicate sample_prop_over_100k
-      &lt;int&gt;                 &lt;dbl&gt;
-1         1                  0.58</code></pre>
-</div>
-</div>
-<p>With our sample of 50 people we get a sample proportion of 0.58, meaning 58% of people in our sample made over 100k.</p>
-<div class="fragment">
-<p>The population proportion was 0.642. The sample gave us a similar value, but not quite the same.</p>
-</div>
-</section>
-<section id="sample-2" class="slide level2">
-<h2>Sample 2</h2>
-<p>Suppose we were to randomly sample 50 people from the LAPD again:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>sample_2 <span class="ot">&lt;-</span> <span class="fu">rep_sample_n</span>(lapd, <span class="at">size =</span> <span class="dv">50</span>)</span>
-<span id="cb9-2"><a href=""></a></span>
-<span id="cb9-3"><a href=""></a>sample_2 <span class="sc">|&gt;</span> </span>
-<span id="cb9-4"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">sample_prop_over_100k =</span> <span class="fu">sum</span>(over_100k <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">nrow</span>(sample_1)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 2
-  replicate sample_prop_over_100k
-      &lt;int&gt;                 &lt;dbl&gt;
-1         1                  0.68</code></pre>
-</div>
-</div>
-<div class="fragment">
-<p>This sample proportion is even further away from the actual population proportion of 0.642!</p>
-</div>
-</section>
-<section id="sample-3" class="slide level2">
-<h2>Sample 3</h2>
-<p>Suppose we were to randomly sample 50 people from the LAPD a third time:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>sample_3 <span class="ot">&lt;-</span> <span class="fu">rep_sample_n</span>(lapd, <span class="at">size =</span> <span class="dv">50</span>)</span>
-<span id="cb11-2"><a href=""></a></span>
-<span id="cb11-3"><a href=""></a>sample_3 <span class="sc">|&gt;</span> </span>
-<span id="cb11-4"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">sample_prop_over_100k =</span> <span class="fu">sum</span>(over_100k <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="fu">nrow</span>(sample_1)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 2
-  replicate sample_prop_over_100k
-      &lt;int&gt;                 &lt;dbl&gt;
-1         1                  0.74</code></pre>
-</div>
-</div>
-<div class="fragment">
-<p>This time we over estimated the population proportion of 0.642!</p>
-<!-- ## Sample 4 -->
-<!-- Suppose we were to randomly sample 50 people from the LAPD a fourth time: -->
-<!-- ```{r} -->
-<!-- sample_4 <- rep_sample_n(lapd, size = 50) -->
-<!-- sample_4 |>  -->
-<!--   summarize( -->
-<!--     sample_prop_over_100k = sum(over_100k == TRUE) / nrow(sample_1) -->
-<!--   )  -->
-<!-- ``` -->
-<!-- ## Sample 5 -->
-<!-- Suppose we were to randomly sample 50 people from the LAPD a fourth time: -->
-<!-- ```{r} -->
-<!-- sample_5 <- rep_sample_n(lapd, size = 50) -->
-<!-- sample_5 |>  -->
-<!--   summarize( -->
-<!--     sample_prop_over_100k = sum(over_100k == TRUE) / nrow(sample_1) -->
-<!--   )  -->
-<!-- ``` -->
-</div>
-</section>
-<section id="sampling-variability" class="slide level2">
-<h2>Sampling variability</h2>
-<p>While our population proportion of people that made over 100k stayed the same: 0.642, our sample proportions varied:</p>
-<table class="caption-top">
-<thead>
-<tr class="header">
-<th style="text-align: left;">Sample</th>
-<th style="text-align: left;">Sample Proportion</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">0.58</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">0.68</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">0.74</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">…</td>
-<td style="text-align: left;">…</td>
-</tr>
-</tbody>
-</table>
-<p>This is called <strong>sampling variability</strong>!</p>
-</section>
-<section id="sample-proportion" class="slide level2">
-<h2>Sample proportion</h2>
-<p>If we can’t expect the proportion from our sample to be exactly equal to the true population proportion due to sampling variability:</p>
-<blockquote>
-<p>How can we trust our sample proportion to infer the population proportion?</p>
-</blockquote>
-<div class="fragment">
-<p>We can use simulations to draw a bunch of samples and examine the distribution of the proportions from each sample</p>
-</div>
-</section>
-<section id="simulating-many-samples" class="slide level2">
-<h2>Simulating many samples</h2>
-<p>The <code>reps</code> argument of the <code>rep_sample_n()</code> function allows us to simulate drawing 20,000 samples, each with 50 people</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>lapd_samples <span class="ot">&lt;-</span> <span class="fu">rep_sample_n</span>(lapd, <span class="at">size =</span> <span class="dv">50</span>, <span class="at">reps =</span> <span class="dv">20000</span>)</span>
-<span id="cb13-2"><a href=""></a></span>
-<span id="cb13-3"><a href=""></a>lapd_samples</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1,000,000 × 5
-# Groups:   replicate [20,000]
-   replicate row_id           projected_annual_salary job_class_title  over_100k
-       &lt;int&gt; &lt;chr&gt;                              &lt;dbl&gt; &lt;chr&gt;            &lt;lgl&gt;    
- 1         1 8-1963710446ctFu                 125593. Criminalist II   TRUE     
- 2         1 8-416464267ctFu                   68841. Police Officer I FALSE    
- 3         1 8-1330302261ctFu                  80973. Police Officer … FALSE    
- 4         1 8-3963655838ctFu                 118400. Police Officer … TRUE     
- 5         1 8-2557909422ctFu                 107433. Senior Police S… TRUE     
- 6         1 8-1725439593ctFu                 143258. Police Officer … TRUE     
- 7         1 8-1227002932ctFu                 114405. Police Officer … TRUE     
- 8         1 8-1448281012ctFu                  63371. Police Officer I FALSE    
- 9         1 8-413608468ctFu                   51553. Police Service … FALSE    
-10         1 8-506817029ctFu                  105131. Criminalist II   TRUE     
-# ℹ 999,990 more rows</code></pre>
-</div>
-</div>
-</section>
-<section id="simulating-many-samples-1" class="slide level2">
-<h2>Simulating many samples</h2>
-<p>The <code>reps</code> argument of the <code>rep_sample_n()</code> function allows us to simulate drawing 20,000 samples, each with 50 people</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">tail</span>(lapd_samples)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 6 × 5
-# Groups:   replicate [1]
-  replicate row_id           projected_annual_salary job_class_title   over_100k
-      &lt;int&gt; &lt;chr&gt;                              &lt;dbl&gt; &lt;chr&gt;             &lt;lgl&gt;    
-1     20000 8-2256713896ctFu                 123191. Police Officer I… TRUE     
-2     20000 8-2846179253ctFu                  54935. Administrative C… FALSE    
-3     20000 8-3523200498ctFu                 108891. Police Officer II TRUE     
-4     20000 8-3325881702ctFu                 100516. Police Officer II TRUE     
-5     20000 8-753108784ctFu                  106530. Senior Automotiv… TRUE     
-6     20000 8-3537297129ctFu                 155118. Police Lieutenan… TRUE     </code></pre>
-</div>
-</div>
-</section>
-<section id="sample-proportions-from-20000-samples" class="slide level2">
-<h2>Sample proportions from 20,000 samples</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a>lapd_samples <span class="ot">&lt;-</span></span>
-<span id="cb17-2"><a href=""></a>  lapd_samples <span class="sc">|&gt;</span> </span>
-<span id="cb17-3"><a href=""></a>  <span class="fu">group_by</span>(replicate) <span class="sc">|&gt;</span></span>
-<span id="cb17-4"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">sample_prop_over_100k =</span> <span class="fu">sum</span>(over_100k <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="dv">50</span>)</span>
-<span id="cb17-5"><a href=""></a></span>
-<span id="cb17-6"><a href=""></a>lapd_samples</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 20,000 × 2
-   replicate sample_prop_over_100k
-       &lt;int&gt;                 &lt;dbl&gt;
- 1         1                  0.6 
- 2         2                  0.6 
- 3         3                  0.64
- 4         4                  0.68
- 5         5                  0.64
- 6         6                  0.62
- 7         7                  0.64
- 8         8                  0.7 
- 9         9                  0.6 
-10        10                  0.56
-# ℹ 19,990 more rows</code></pre>
-</div>
-</div>
-</section>
-<section id="sample-proportions-from-20000-samples-1" class="slide level2">
-<h2>Sample proportions from 20,000 samples</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="fu">ggplot</span>(lapd_samples, <span class="fu">aes</span>(<span class="at">x =</span> sample_prop_over_100k)) <span class="sc">+</span></span>
-<span id="cb19-2"><a href=""></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">15</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-</div>
-<img data-src="lec-12a-sampling-distribution_files/figure-revealjs/unnamed-chunk-14-1.png" width="960" class="r-stretch"></section>
-<section id="sample-proportions-from-20000-samples-2" class="slide level2">
-<h2>Sample proportions from 20,000 samples</h2>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">ggplot</span>(lapd_samples, <span class="fu">aes</span>(<span class="at">x =</span> sample_prop_over_100k)) <span class="sc">+</span></span>
-<span id="cb20-2"><a href=""></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">15</span>) <span class="sc">+</span></span>
-<span id="cb20-3"><a href=""></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">0.642</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-</div>
-<img data-src="lec-12a-sampling-distribution_files/figure-revealjs/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
-<section id="sampling-distribution-n-50" class="slide level2">
-<h2>Sampling distribution (<span class="math inline">\(n\)</span> = 50)</h2>
-<p>The <strong>sampling distribution</strong> is the distribution of our estimate for all samples of a given size (<span class="math inline">\(n\)</span>)</p>
-
-<img data-src="lec-12a-sampling-distribution_files/figure-revealjs/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
-<section id="features-of-the-sampling-distribution" class="slide level2">
-<h2>Features of the sampling distribution</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a>lapd_samples <span class="sc">|&gt;</span> </span>
-<span id="cb21-2"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(sample_prop_over_100k), <span class="at">sd =</span> <span class="fu">sd</span>(sample_prop_over_100k))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 2
-   mean     sd
-  &lt;dbl&gt;  &lt;dbl&gt;
-1 0.643 0.0681</code></pre>
-</div>
-</div>
-<div class="fragment">
-<p>The mean of the proportions we got from each sample is almost equal to the population proportion (0.642)!</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="lec-12a-sampling-distribution_files/figure-revealjs/unnamed-chunk-18-1.png" class="quarto-figure quarto-figure-center" width="500" height="300"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="n-200" class="slide level2">
-<h2><span class="math inline">\(n = 200\)</span></h2>
-<p>We chose to only sample 50 people each time, but why not 200?</p>
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href=""></a>lapd_samples_200 <span class="ot">&lt;-</span> <span class="fu">rep_sample_n</span>(lapd, <span class="at">size =</span> <span class="dv">200</span>, <span class="at">reps =</span> <span class="dv">20000</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb23-2"><a href=""></a>  <span class="fu">group_by</span>(replicate) <span class="sc">|&gt;</span></span>
-<span id="cb23-3"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">sample_prop_over_100k =</span> <span class="fu">sum</span>(over_100k <span class="sc">==</span> <span class="cn">TRUE</span>) <span class="sc">/</span> <span class="dv">200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="lec-12a-sampling-distribution_files/figure-revealjs/unnamed-chunk-20-1.png" class="quarto-figure quarto-figure-center" width="800" height="300"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="changing-n" class="slide level2">
-<h2>Changing <span class="math inline">\(n\)</span></h2>
-
-<img data-src="lec-12a-sampling-distribution_files/figure-revealjs/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><p>As we increase the number of people in each sample (“sample size” <span class="math inline">\(n\)</span>), the standard deviation of our sample proportions decreases!</p>
-</section>
-<section id="review-of-sampling-distributions-for-a-proportion" class="slide level2">
-<h2>Review of sampling distributions for a proportion</h2>
-<ul>
-<li>The mean of our sample proportions is approximately the true population proportion</li>
-<li>Increasing our sample size decreases the variability of our sample proportions</li>
-</ul>
-</section></section>
-<section>
-<section id="sampling-distibution-for-a-mean" class="title-slide slide level1 center">
-<h1>Sampling distibution for a mean</h1>
-<p>Up until now we have been focused on studying how much a sample proportion can vary from sample to sample. Sample proportions are useful for research questions concerning categorical variables</p>
-<p>Now we will study how much a sample mean varies from sample to sample. Sample means are useful for research questions concerning numerical variables.</p>
-</section>
-<section id="study-components-2" class="slide level2">
-<h2>Study components</h2>
-<p><strong>Research question</strong>: How much did full time workers in the LAPD in 2018 make, on average?</p>
-<p><strong>Population of interest</strong>:</p>
-<p><strong>Population parameter</strong>:</p>
-</section>
-<section id="study-components-3" class="slide level2">
 <h2>Study components</h2>
 <p><strong>Research question</strong>: How much did full time workers in the LAPD in 2018 make, on average?</p>
 <p><strong>Population of interest</strong>: people working full time for the LAPD in 2018</p>
 <p><strong>Population parameter</strong>: mean salary of people working full time for the LAPD in 2018</p>
 </section>
-<section id="salary" class="slide level2">
-<h2>Salary</h2>
+<section id="prep-data" class="slide level2">
+<h2>Prep data</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href=""></a><span class="fu">ggplot</span>(lapd, <span class="fu">aes</span>(<span class="at">x =</span> projected_annual_salary)) <span class="sc">+</span></span>
-<span id="cb24-2"><a href=""></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-</div>
-<img data-src="lec-12a-sampling-distribution_files/figure-revealjs/unnamed-chunk-22-1.png" width="960" class="r-stretch"></section>
-<section id="population-mean" class="slide level2">
-<h2>Population mean</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href=""></a>lapd <span class="sc">|&gt;</span> </span>
-<span id="cb25-2"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">mean_salary =</span> <span class="fu">mean</span>(projected_annual_salary))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 1
-  mean_salary
-        &lt;dbl&gt;
-1     103127.</code></pre>
-</div>
-</div>
-<p>So the population proportion (population mean in this case) salary is $103,127.</p>
-</section>
-<section id="mean-salary-for-a-single-sample-of-50-people" class="slide level2">
-<h2>Mean salary for a single sample of 50 people</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href=""></a>lapd_sample <span class="ot">&lt;-</span> <span class="fu">rep_sample_n</span>(lapd, <span class="at">size =</span> <span class="dv">50</span>)</span>
-<span id="cb27-2"><a href=""></a></span>
-<span id="cb27-3"><a href=""></a>lapd_sample <span class="sc">|&gt;</span> </span>
-<span id="cb27-4"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(projected_annual_salary))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 2
-  replicate   mean
-      &lt;int&gt;  &lt;dbl&gt;
-1         1 96537.</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(infer)</span>
+<span id="cb1-2"><a href=""></a></span>
+<span id="cb1-3"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">20260420</span>)</span>
+<span id="cb1-4"><a href=""></a></span>
+<span id="cb1-5"><a href=""></a>lapd <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://csuci-data200-spring2026.github.io/lectures/data/Police_Payroll.csv"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-6"><a href=""></a>  <span class="fu">clean_names</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb1-7"><a href=""></a>  <span class="fu">filter</span>(year <span class="sc">==</span> <span class="dv">2018</span> <span class="sc">&amp;</span> employment_type <span class="sc">==</span> <span class="st">"Full Time"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb1-8"><a href=""></a>  <span class="fu">select</span>(projected_annual_salary, job_class_title) <span class="sc">|&gt;</span> </span>
+<span id="cb1-9"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">over_100k =</span> <span class="fu">case_when</span>(</span>
+<span id="cb1-10"><a href=""></a>    projected_annual_salary <span class="sc">&gt;</span> <span class="dv">100000</span> <span class="sc">~</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-11"><a href=""></a>    projected_annual_salary <span class="sc">&lt;=</span> <span class="dv">100000</span> <span class="sc">~</span> <span class="cn">FALSE</span></span>
+<span id="cb1-12"><a href=""></a>  ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="sampling-distribution-for-the-mean-n-50" class="slide level2">
-<h2>Sampling distribution for the mean <span class="math inline">\(n = 50\)</span></h2>
+<section id="get-sampling-distribution-n100" class="slide level2">
+<h2>Get sampling distribution (<span class="math inline">\(n=100\)</span>)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href=""></a>lapd_samples <span class="ot">&lt;-</span> <span class="fu">rep_sample_n</span>(lapd, <span class="at">size =</span> <span class="dv">50</span>, <span class="at">reps =</span> <span class="dv">20000</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb29-2"><a href=""></a>  <span class="fu">group_by</span>(replicate) <span class="sc">|&gt;</span> </span>
-<span id="cb29-3"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">salary_sample_means =</span> <span class="fu">mean</span>(projected_annual_salary))</span>
-<span id="cb29-4"><a href=""></a></span>
-<span id="cb29-5"><a href=""></a><span class="fu">ggplot</span>(lapd_samples, <span class="fu">aes</span>(<span class="at">x =</span> salary_sample_means)) <span class="sc">+</span></span>
-<span id="cb29-6"><a href=""></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
-<span id="cb29-7"><a href=""></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">103127.27</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>lapd_samples <span class="ot">&lt;-</span> <span class="fu">rep_sample_n</span>(lapd, <span class="at">size =</span> <span class="dv">100</span>, <span class="at">reps =</span> <span class="dv">20000</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href=""></a>  <span class="fu">group_by</span>(replicate) <span class="sc">|&gt;</span> </span>
+<span id="cb2-3"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">salary_sample_means =</span> <span class="fu">mean</span>(projected_annual_salary))</span>
+<span id="cb2-4"><a href=""></a></span>
+<span id="cb2-5"><a href=""></a><span class="fu">ggplot</span>(lapd_samples, <span class="fu">aes</span>(<span class="at">x =</span> salary_sample_means)) <span class="sc">+</span></span>
+<span id="cb2-6"><a href=""></a>  <span class="fu">geom_histogram</span>() <span class="sc">+</span></span>
+<span id="cb2-7"><a href=""></a>  <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> <span class="fl">103127.27</span>, <span class="at">color =</span> <span class="st">"red"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="lec-12a-sampling-distribution_files/figure-revealjs/unnamed-chunk-26-1.png" width="960" class="r-stretch"></section>
-<section id="features-of-our-sampling-distribution" class="slide level2">
-<h2>Features of our sampling distribution</h2>
+<img data-src="lec-12b-bootstrapping-idea_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"><div class="fragment">
+<p><em>Not typically known in real life!</em></p>
+</div>
+</section></section>
+<section>
+<section id="single-sample" class="title-slide slide level1 center">
+<h1>Single sample</h1>
+<ul>
+<li>Image we only have a single sample of 100 people from the original lapd data.</li>
+<li>We will use the single sample to approximate the sampling distribution</li>
+</ul>
+</section>
+<section id="bootstrapping" class="slide level2">
+<h2>Bootstrapping</h2>
+<p>If we have a sample of size <span class="math inline">\(n\)</span> that is representative of the population of interest we can <strong>act like the single sample is the population</strong> and simulate samples to approximate the sampling distribution</p>
+<ul>
+<li>Our samples will be of the same size <span class="math inline">\(n\)</span> and sampled with replacement.</li>
+<li>The approximate sampling distribution is called the <strong>bootstrap distribution</strong></li>
+</ul>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+
+<img data-src="img/bootstrapping-idea.jpg" width="356" class="r-stretch quarto-figure-center"><p class="caption">Data Science: A First Introduction Figure 10.9: Overview of boostrapping process.</p></section>
+<section id="example-boostrapping-for-mean-salary" class="slide level2">
+<h2>Example: Boostrapping for mean salary</h2>
+<p>We will start by imaging we only had a sample of 100 lapd full time workers from 2018</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href=""></a>lapd_samples <span class="sc">|&gt;</span> </span>
-<span id="cb30-2"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">mean =</span> <span class="fu">mean</span>(salary_sample_means), <span class="at">sd =</span> <span class="fu">sd</span>(salary_sample_means))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>observed_lapd <span class="ot">&lt;-</span> <span class="fu">slice_sample</span>(lapd, <span class="at">n =</span> <span class="dv">100</span>)</span>
+<span id="cb3-2"><a href=""></a></span>
+<span id="cb3-3"><a href=""></a><span class="fu">glimpse</span>(observed_lapd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 1 × 2
-     mean    sd
-    &lt;dbl&gt; &lt;dbl&gt;
-1 103104. 3965.</code></pre>
-</div>
-</div>
-<div class="fragment">
-<p>The mean of the means we got from each sample is almost equal to the population mean ($103,127.27)!</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="lec-12a-sampling-distribution_files/figure-revealjs/unnamed-chunk-28-1.png" class="quarto-figure quarto-figure-center" width="500" height="300"></p>
-</figure>
-</div>
-</div>
+<pre><code>Rows: 100
+Columns: 3
+$ projected_annual_salary &lt;dbl&gt; 70052.40, 54935.28, 103209.84, 86276.16, 54622…
+$ job_class_title         &lt;chr&gt; "Detention Officer", "Administrative Clerk", "…
+$ over_100k               &lt;lgl&gt; FALSE, FALSE, TRUE, FALSE, FALSE, FALSE, TRUE,…</code></pre>
 </div>
 </div>
 </section>
-<section id="sampling-distributions-for-the-mean-with-different-n" class="slide level2">
-<h2>Sampling distributions for the mean with different <span class="math inline">\(n\)</span></h2>
+<section id="theoretical-steps-of-boostrapping" class="slide level2">
+<h2>Theoretical steps of boostrapping</h2>
+<ol type="1">
+<li>Randomly sample <span class="math inline">\(n\)</span> rows from your data <em>with replacement</em></li>
+<li>Calculate the sample statistic (e.g., proportion, mean, etc)</li>
+<li>Repeat steps 1 and 2 many times, combining all sample statistics to get the approximate sampling distribution (bootstrap distribution)</li>
+</ol>
+</section>
+<section id="boostraping-in-r" class="slide level2">
+<h2>Boostraping in R</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>lapd_bootstrap_sample_means <span class="ot">&lt;-</span> <span class="fu">rep_sample_n</span>(</span>
+<span id="cb5-2"><a href=""></a>  observed_lapd, </span>
+<span id="cb5-3"><a href=""></a>  <span class="at">size =</span> <span class="dv">100</span>,</span>
+<span id="cb5-4"><a href=""></a>  <span class="at">rep =</span> <span class="dv">20000</span>,</span>
+<span id="cb5-5"><a href=""></a>  <span class="at">replace =</span> <span class="cn">TRUE</span></span>
+<span id="cb5-6"><a href=""></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb5-7"><a href=""></a>  <span class="fu">group_by</span>(replicate) <span class="sc">|&gt;</span> </span>
+<span id="cb5-8"><a href=""></a>  <span class="fu">summarize</span>(<span class="at">mean_salary =</span> <span class="fu">mean</span>(projected_annual_salary))</span>
+<span id="cb5-9"><a href=""></a></span>
+<span id="cb5-10"><a href=""></a><span class="fu">head</span>(lapd_bootstrap_sample_means)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 2
+  replicate mean_salary
+      &lt;int&gt;       &lt;dbl&gt;
+1         1      99270.
+2         2     100789.
+3         3      99229.
+4         4      98533.
+5         5     101836.
+6         6     105807.</code></pre>
+</div>
+</div>
+</section>
+<section id="boostrap-distribution" class="slide level2">
+<h2>Boostrap distribution</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="fu">ggplot</span>(lapd_bootstrap_sample_means, <span class="fu">aes</span>(<span class="at">x =</span> mean_salary)) <span class="sc">+</span></span>
+<span id="cb7-2"><a href=""></a>  <span class="fu">geom_histogram</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
-<img data-src="lec-12a-sampling-distribution_files/figure-revealjs/unnamed-chunk-29-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><div class="quarto-auto-generated-content">
+</div>
+<img data-src="lec-12b-bootstrapping-idea_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
+<section id="comparing-true-and-approximate-sampling-distributions" class="slide level2">
+<h2>Comparing true and approximate sampling distributions</h2>
+
+<img data-src="lec-12b-bootstrapping-idea_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section></section>
+<section>
+<section id="confidence-intervals" class="title-slide slide level1 center">
+<h1>Confidence intervals</h1>
+<p>Okay, so now we know we can approximate the sampling distribution, but what do we do with it?</p>
+<p>A <strong>confidence interval</strong> is a range of plausible values for the population parameter</p>
+<ul>
+<li>We can a 95% confidence interval by finding the two values that separate the middle 95% of our approximate / bootstrap sampling distribution</li>
+</ul>
+</section>
+<section id="middle-95-of-bootstrap-distribution" class="slide level2">
+<h2>Middle 95% of bootstrap distribution</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">quantile</span>(lapd_bootstrap_sample_means<span class="sc">$</span>mean_salary, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     2.5%     97.5% 
+ 98234.98 107912.15 </code></pre>
+</div>
+</div>
+
+<img data-src="lec-12b-bootstrapping-idea_files/figure-revealjs/unnamed-chunk-10-1.png" width="960" class="r-stretch"></section>
+<section id="interpreting-confidence-interval" class="slide level2">
+<h2>Interpreting confidence interval</h2>
+<p>With our single sample of 100 LAPD workers:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="fu">mean</span>(observed_lapd<span class="sc">$</span>projected_annual_salary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 103134.4</code></pre>
+</div>
+</div>
+<p>We estimate the true mean salary for all LAPD full time workers in 2018 to be $103134.4134.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="fu">quantile</span>(lapd_bootstrap_sample_means<span class="sc">$</span>mean_salary, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>     2.5%     97.5% 
+ 98234.98 107912.15 </code></pre>
+</div>
+</div>
+<p>We are 95% confident that the true mean salary for all LAPD full time workers in 2018 is between $98234.98 and $107912.15.</p>
+</section></section>
+<section>
+<section id="summary-of-bootstrap-process" class="title-slide slide level1 center">
+<h1>Summary of bootstrap process</h1>
+
+</section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+
+<img data-src="img/bootstrapping-process.jpg" width="330" class="r-stretch quarto-figure-center"><p class="caption">Data Science: A First Introduction Figure 10.15: Sumary of boostrapping process.</p><div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
 </div>
@@ -876,19 +597,19 @@ $ over_100k               &lt;lgl&gt; TRUE, TRUE, TRUE, FALSE, TRUE, TRUE, TRUE,
   </div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="lec-12a-sampling-distribution_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="lec-12b-bootstrapping-idea_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="lec-12a-sampling-distribution_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="lec-12a-sampling-distribution_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="lec-12a-sampling-distribution_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="lec-12a-sampling-distribution_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="lec-12a-sampling-distribution_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="lec-12b-bootstrapping-idea_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="lec-12b-bootstrapping-idea_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="lec-12b-bootstrapping-idea_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="lec-12b-bootstrapping-idea_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="lec-12b-bootstrapping-idea_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="lec-12a-sampling-distribution_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="lec-12a-sampling-distribution_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="lec-12a-sampling-distribution_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="lec-12a-sampling-distribution_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="lec-12b-bootstrapping-idea_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="lec-12b-bootstrapping-idea_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="lec-12b-bootstrapping-idea_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="lec-12b-bootstrapping-idea_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
