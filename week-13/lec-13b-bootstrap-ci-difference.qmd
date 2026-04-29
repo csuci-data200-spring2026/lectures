@@ -151,7 +151,7 @@ lapd_bootstrap_sample_props <- rep_sample_n(
 ) |> 
   group_by(replicate, benefits_plan) |> 
   summarize(
-    prop_over_100k = sum(over_100k == TRUE) / nrow(observed_lapd),
+    prop_over_100k = sum(over_100k == TRUE) / n(),
     .groups = "drop"
   )
 
