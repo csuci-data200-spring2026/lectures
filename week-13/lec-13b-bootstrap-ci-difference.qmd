@@ -1,0 +1,249 @@
+---
+title: "Data 200: Lecture 13b"
+subtitle: "Bootstrap for difference in proportions/means"
+author: "Medina - CSU Channel Islands"
+format: 
+  revealjs:
+    theme: [sky, ../slide-style.scss]
+    slide-number: true
+execute:
+  echo: true 
+---
+
+
+```{r}
+#| echo: false
+options(scipen = 999)
+library(janitor)
+library(patchwork)
+library(tidyverse)
+theme_set(theme_bw(base_size = 22))
+```
+
+# Confidence intervals
+
+Up until now we have learned how to do inference for
+
+- a **single mean** using bootstrap confidence intervals to estimate a population mean
+- a **single proportion** using bootstrap confidence intervals to estimate a population proportion
+
+. . .
+
+Today we will extend that to do inference for
+
+- the **difference of two proportions**
+- the **difference of two means**
+
+## Data
+
+```{r}
+#| echo: true
+
+library(infer)
+
+set.seed(20260429)
+
+lapd <- read_csv("https://csuci-data200-spring2026.github.io/lectures/data/Police_Payroll.csv") |> 
+  clean_names() |> 
+  filter(year == 2018 & employment_type == "Full Time") |> 
+  select(projected_annual_salary, job_class_title, benefits_plan) |> 
+  mutate(over_100k = case_when(
+    projected_annual_salary > 100000 ~ TRUE,
+    projected_annual_salary <= 100000 ~ FALSE
+  ))
+
+observed_lapd <- slice_sample(lapd, n = 100)
+```
+
+# Review: Inference for a single proportion
+
+What proportion of LA Police Department full time workers make over $100,000 in 2018?
+
+. . .
+
+*Making over $100,000 is a categorical binary variable, so we are interested in a proportion!* 
+
+## Inference for a single proportion
+
+```{r}
+lapd_bootstrap_sample_props <- rep_sample_n(
+  observed_lapd, 
+  size = nrow(observed_lapd),
+  rep = 20000,
+  replace = TRUE
+) |> 
+  group_by(replicate) |> 
+  summarize(prop_over_100k = sum(over_100k == TRUE) / nrow(observed_lapd))
+
+quantile(lapd_bootstrap_sample_props$prop_over_100k, probs = c(0.025, 0.975))
+```
+
+```{r}
+#| echo: false
+
+prop_ci <- round(
+  quantile(lapd_bootstrap_sample_props$prop_over_100k, probs = c(0.025, 0.975)),
+  2
+)
+```
+
+
+. . .
+
+We are 95% confidence that the proportion of LAPD workers that make over $100,000 in 2018 is between `r prop_ci[1]` and `r prop_ci[2]`.
+
+
+# Review: Inference for a single mean
+
+What is the average salary of LA Police Department full time workers in 2018?
+
+. . .
+
+*Salary is a numerical variable, so we are interested in a mean!* 
+
+## Inference for a single mean
+
+```{r}
+lapd_bootstrap_sample_means <- rep_sample_n(
+  observed_lapd, 
+  size = nrow(observed_lapd),
+  rep = 20000,
+  replace = TRUE
+) |> 
+  group_by(replicate) |> 
+  summarize(ave_salary = mean(projected_annual_salary))
+
+quantile(lapd_bootstrap_sample_means$ave_salary, probs = c(0.025, 0.975))
+```
+
+```{r}
+#| echo: false
+
+mean_ci <- round(
+  quantile(lapd_bootstrap_sample_means$ave_salary, probs = c(0.025, 0.975)),
+  2
+)
+```
+
+
+. . .
+
+We are 95% confidence that the average salary of LAPD workers in 2018 is between $`r mean_ci[1]` and $`r mean_ci[2]`.
+
+# Inference for a difference in two proportions
+
+What is the difference in proportions of LAPD full time workers that make over $100,000 in 2018, among those on the city and those on the police benefits plan?
+
+. . .
+
+*Making over $100,000 is a categorical binary variable, so we are interested in proportions!*
+
+$$\text{Proportion}_{\text{City}} - \text{Proportion}_{\text{Police}}$$ 
+
+## Inference for a difference in two proportions
+
+```{r}
+lapd_bootstrap_sample_props <- rep_sample_n(
+  observed_lapd, 
+  size = nrow(observed_lapd),
+  rep = 20000,
+  replace = TRUE
+) |> 
+  group_by(replicate, benefits_plan) |> 
+  summarize(
+    prop_over_100k = sum(over_100k == TRUE) / nrow(observed_lapd),
+    .groups = "drop"
+  )
+
+lapd_bootstrap_sample_props
+```
+
+## Inference for a difference in two proportions
+
+```{r}
+lapd_bootstrap_diff_sample_props <- lapd_bootstrap_sample_props |> 
+  pivot_wider(names_from = benefits_plan, values_from = prop_over_100k) |>
+  mutate(diff_prop_over_100k = `City` - `Police`)
+
+quantile(
+  lapd_bootstrap_diff_sample_props$diff_prop_over_100k, 
+  probs = c(0.025, 0.975)
+)
+```
+
+```{r}
+#| echo: false
+
+props_ci <- round(
+  quantile(
+    lapd_bootstrap_diff_sample_props$diff_prop_over_100k, 
+    probs = c(0.025, 0.975)
+  ),
+  2
+)
+```
+
+
+. . .
+
+We are 95% confidence that the difference in proportions of LAPD full time workers that make over $100,000 in 2018, among those on the city and those on the police benefits plan is between `r props_ci[1]` and `r props_ci[2]`.
+
+
+# Inference for a difference in two means
+
+What is the difference in average salary of LA Police Department full time workers in 2018, for those on the city and those on the police benefits plan?
+
+. . .
+
+*Salary is a numerical variable, so we are interested in means!* 
+
+$$\text{Mean}_{\text{City}} - \text{Mean}_{\text{Police}}$$
+
+## Inference for a difference in two means
+
+```{r}
+lapd_bootstrap_sample_means <- rep_sample_n(
+  observed_lapd, 
+  size = nrow(observed_lapd),
+  rep = 20000,
+  replace = TRUE
+) |> 
+  group_by(replicate, benefits_plan) |> 
+  summarize(
+    ave_salary = mean(projected_annual_salary),
+    .groups = "drop"
+  )
+
+lapd_bootstrap_sample_means
+```
+
+## Inference for a difference in two means
+
+```{r}
+lapd_bootstrap_diff_sample_means <- lapd_bootstrap_sample_means |> 
+  pivot_wider(names_from = benefits_plan, values_from = ave_salary) |>
+  mutate(diff_ave_salary = `City` - `Police`)
+
+quantile(
+  lapd_bootstrap_diff_sample_means$diff_ave_salary, 
+  probs = c(0.025, 0.975)
+)
+```
+
+```{r}
+#| echo: false
+
+means_ci <- round(
+  quantile(
+    lapd_bootstrap_diff_sample_means$diff_ave_salary, 
+    probs = c(0.025, 0.975)
+  ),
+  2
+)
+```
+
+
+. . .
+
+We are 95% confidence that the the difference in average salary of LA Police Department full time workers in 2018, for those on the city and those on the police benefits plan is between $`r means_ci[1]` and $`r means_ci[2]`.
+
