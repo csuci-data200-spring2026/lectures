@@ -81,12 +81,18 @@ You can find data from other sources, but here are some recommendations:
 Revised proposal should include:
 
 - Improvements to any component of your initial project proposal that did not receive full marks. 
-- More detailed proposal of methods
+- More detailed proposal of methods for each research question
+- Feedback reflection. Add a section to your proposal and mention what changed from your initial proposal.
 - Preliminary investigation
-- Feedback reflection (what changed + why)
+  - I want to see you answer one of your research questions
 
-*Rubric to be determined*
-
+| Component | Description | Points Possible | Points Earned |
+|:----------|:-----------------------------------|:--|:--|
+| **Initial proposal revisions** | Meets requirements stated in initial proposal. You should edit your "proposal.qmd" file to make these improvements. | 7 | |
+| **Proposal improvements** | The "proposal.qmd" should include: the population for each research question, a comment on if you think your sample data is generalizable to the population of interest and an explanation why. | 4 | |
+| **Presentation outline** | Students should make a quarto document titled "presentation.qmd" in their repo and outline their presentation slides (Make headers for slides). | 2 | |
+| **One research question investigated** | In the "presentation.qmd" I would like you to answer one of your research questions. *This way I can give you feedback and you will only have a few more to complete for your final.* | 5 | |
+| **Version control** | All team members make multiple meaningful commits with clear, concise messages. | 2 | |
 
 ## Final project presentation
 
