@@ -91,7 +91,7 @@ Revised proposal should include:
 | **Initial proposal revisions** | Meets requirements stated in initial proposal. You should edit your "proposal.qmd" file to make these improvements. | 7 | |
 | **Proposal improvements** | The "proposal.qmd" should include: the population for each research question, a comment on if you think your sample data is generalizable to the population of interest and an explanation why. | 4 | |
 | **Presentation outline** | Students should make a quarto document titled "presentation.qmd" in their repo and outline their presentation slides (Make headers for slides). | 2 | |
-| **One research question investigated** | In the "presentation.qmd" I would like you to answer one of your research questions. *This way I can give you feedback and you will only have a few more to complete for your final.* | 5 | |
+| **One research question investigated** | In the "presentation.qmd" I would like you to answer one of your research questions. *This way I can give you feedback and you will only have a few more to complete for your final.* You can use whatever you would like to produce your slides (I recommend Google Slides), but all code to produce anything you present should be in your presentation.qmd file. | 5 | |
 | **Version control** | All team members make multiple meaningful commits with clear, concise messages. | 2 | |
 
 ## Final project presentation
