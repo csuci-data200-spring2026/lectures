@@ -90,9 +90,9 @@ Revised proposal should include:
 |:----------|:-----------------------------------|:--|:--|
 | **Initial proposal revisions** | Meets requirements stated in initial proposal. You should edit your "proposal.qmd" file to make these improvements. | 7 | |
 | **Proposal improvements** | The "proposal.qmd" should include: the population for each research question, a comment on if you think your sample data is generalizable to the population of interest and an explanation why. | 4 | |
-| **Presentation outline** | Students should make a quarto document titled "presentation.qmd" in their repo and outline their presentation slides (Make headers for slides). | 2 | |
-| **One research question investigated** | In the "presentation.qmd" I would like you to answer one of your research questions. *This way I can give you feedback and you will only have a few more to complete for your final.* You can use whatever you would like to produce your slides (I recommend Google Slides), but all code to produce anything you present should be in your presentation.qmd file. | 5 | |
+| **One research question investigated** | In the "proposal.qmd" I would like you to answer one of your research questions. *This way I can give you feedback and you will only have a few more to complete for your final.* | 5 | |
 | **Version control** | All team members make multiple meaningful commits with clear, concise messages. | 2 | |
+| **Presentation outline** | You can use whatever you would like to produce your slides (I recommend Google Slides), but all code to produce anything you present should be in your proposal.qmd file. For this stage you should outline your presentation slides (For example: Make headers for slides). | 2 | |
 
 ## Final project presentation
 
@@ -101,8 +101,8 @@ You will present your final project in teams during our scheduled final time: Ma
 Your presentation should:
 
 - Be between 10-12 minutes in length, with all teammates participating.
-- Be produced by a single Quarto document, including code to produce any results shown in presentation.
-- Not contain visible code. The option `echo: false` should be set so code is not displayed when rendered.
+- Be produced by a single Quarto document, "proposal.qmd", including code to produce any results shown in presentation.
+- Not show code in your slides.
 - Include:
   - Research question(s)
   - Data description & source
