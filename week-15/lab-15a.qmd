@@ -1,0 +1,218 @@
+---
+title: ""
+format: 
+  pdf:
+    echo: false
+    message: false
+    warning: false
+    geometry:
+      - bottom=1in
+header-includes:
+  - \usepackage{lastpage}
+  - \usepackage{fancyhdr}
+  - \pagestyle{fancy}
+  - \fancyhf{}
+  - \fancyhead[L]{Data 200 Spring 2026 -- \textbf{Lab 15a}}
+  - \fancyhead[R]{Normal distributions}
+  - \fancyfoot[C]{\thepage\ of \pageref{LastPage}}
+  - \renewcommand{\headrulewidth}{0.4pt}
+---
+
+```{r}
+#| echo: false
+library(patchwork)
+library(knitr)
+library(tidyverse)
+library(openintro)
+```
+
+```{r}
+plot_normal_prob <- function(value, mean, sd, end = 3, direction = "lower"){
+  
+  x <- seq(mean - (end * sd) , mean + (end * sd), 0.01)
+  
+  y <- dnorm(x, mean = mean, sd = sd)
+  
+  data <- data.frame(x = x, y = y)
+  
+  p <- ggplot(data = data, aes(x)) +
+    stat_function(
+      fun = stats::dnorm,
+      n = 101,
+      args = list(mean = mean, sd= sd)
+    ) 
+  
+  if(direction == "lower"){
+    
+    p <- p +
+      stat_function(
+        fun = dnorm, 
+        args = list(mean, sd), 
+        geom = "area", 
+        fill = "#D55E00", 
+        alpha = 0.8,
+        xlim = c(mean - (end*sd), value)
+      ) +
+      labs(
+        caption = paste0(
+          "The area under the curve is ",
+          round(pnorm(value, mean, sd), digits = 4) * 100, 
+          "%."
+        )
+      )
+  }
+  
+  
+  if(direction == "upper"){
+    
+    p <- p +
+      stat_function(
+        fun = dnorm, 
+        args = list(mean, sd), 
+        geom = "area", 
+        fill = "#D55E00", 
+        alpha = 0.8, 
+        xlim = c(value, mean+(end * sd))
+      ) +
+      labs(
+        caption = paste0(
+          "The area under the curve is ", 
+          round(pnorm(value, mean, sd, lower.tail = FALSE), digits = 4) * 100, 
+          "%."
+        )
+      )
+  }
+  
+  p
+  
+}
+
+```
+
+
+\newcommand{\blank}{\rule{2.5cm}{0.15mm}}
+
+**Names**:
+
+**Question 1**\newline
+Below are the normal distributions of four variables. 
+```{r}
+set.seed(123)
+
+library(tidyverse)
+
+# Define your contexts with realistic parameters
+curves <- tibble(
+  mean = c(80, 67, 0, 16),  # Ragdoll kitten birthweight (ounces)
+  sd = c(4, 5, 1.5, 2),     # kitten birthweight variability (oz)
+  variable = c(
+    "Temp",
+    "Height",
+    "Measurement error",
+    "Ragdoll"
+  )
+) |> 
+  mutate(variable = factor(
+    variable,
+    levels = c("Ragdoll", "Temp", "Measurement error", "Height"),
+    labels = c("A", "B", "C", "D")
+  )) |> 
+  arrange(variable)
+
+# Generate curve data
+curve_data <- curves %>%
+  group_by(variable, mean, sd) %>%
+  reframe(
+    x = seq(mean - 4 * sd, mean + 4 * sd, length.out = 300),
+    y = dnorm(x, mean, sd)
+  )
+
+# Plot (students only see A–D)
+ggplot(curve_data, aes(x, y)) +
+  geom_line(linewidth = 1.2) +
+  facet_wrap(~ variable, scales = "free") +
+  labs(
+    x = "Value",
+    y = "Density"
+  ) +
+  theme_minimal(base_size = 14)
+```
+
+**Question 1a**\newline
+Identify the distribution plot for each variable.
+
+- Camarillo's daily high temperature in July (in Fahrenheit)
+- Height of students at CSUCI (in inches)
+- Error in measuring the same object repeatedly (in mm)
+- Birth weight of ragdoll kittens (in ounces)
+
+**Question 1b**\newline
+Match each variable/curve pair to the following forms of the normal distribution.
+
+- Normal($\mu$ = 0, $\sigma$ = 1.5)
+- Normal($\mu$ = 80, $\sigma$ = 4)
+- Normal($\mu$ = 67, $\sigma$ = 5)
+- Normal($\mu$ = 16, $\sigma$ = 2)
+
+**Question 1c**
+
+\vspace*{-0.5cm}
+
+| Variable | Plot | Distribution | Mean | Std. Dev. |
+|:----------------|:---|:-----|:---|:---|
+| Camarillo's daily high temp. in July (in F) | | Normal | | |
+| Height of students at CSUCI (in inches) | | Normal | | |
+| Measurement error | | Normal | | |
+| Birth weight of ragdoll kittens (in ounces) | | Normal | | |
+
+: Fill in the table for each variable. {.striped .hover}
+
+
+**Question 1d**
+
+Approximate each probability
+
+- Probability of a positive measurement error:
+
+- Probability of CSUCI student being over 8 feet tall:
+
+- Probability of a ragdoll kitten weighing less than 20 oz at birth:
+
+- Probability of a daily high temperature for Camarillo in July being between 70 and 90 degrees Fahrenheit:
+
+## Question 2
+
+Which of the following variables do you think could be appropriately approximated by the normal distribution?
+
+```{r}
+#| echo: false
+#| fig-width: 7
+#| fig-height: 5
+# -----------------------------------------------
+# Part 2: Histograms: Which look approximately normal?
+# -----------------------------------------------
+
+n <- 500
+
+hist_data <- tibble(
+  salary = rlnorm(n, meanlog = log(65000), sdlog = 0.4),
+  wait_time = runif(n, min = 0, max = 60),
+  body_temp = rnorm(n, mean = 98, sd = 1),
+  commute_time = c(rnorm(n / 2, 20, 5), rnorm(n / 2, 50, 7))
+) %>%
+  pivot_longer(
+    everything(),
+    names_to = "variable",
+    values_to = "value"
+  )
+
+ggplot(hist_data, aes(value)) +
+  geom_histogram(bins = 30, color = "white") +
+  facet_wrap(~ variable, scales = "free", ncol = 2) +
+  labs(
+    x = "Variable",
+    y = "Count"
+  ) +
+  theme_minimal(base_size = 14)
+```
+
