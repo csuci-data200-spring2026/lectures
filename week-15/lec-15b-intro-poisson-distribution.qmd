@@ -1,0 +1,142 @@
+---
+title: "Data 200: Lecture 15b"
+subtitle: "Poisson Distribution"
+author: "Medina - CSU Channel Islands"
+format: 
+  revealjs:
+    theme: [sky, ../slide-style.scss]
+    slide-number: true
+execute:
+  echo: true 
+---
+
+
+```{r}
+#| echo: false
+options(scipen = 999)
+library(janitor)
+library(patchwork)
+library(tidyverse)
+theme_set(theme_bw(base_size = 22))
+```
+
+
+# Review: Normal distribution
+
+## Normal distribution: Shape
+
+```{r}
+#| echo: false
+#| fig-width: 4
+#| fig-height: 2
+#| fig-align: center
+
+data.frame(x = seq(-4, 4, length = 100)) |> 
+  ggplot(aes(x = x)) +
+  geom_function(fun = dnorm, args = list(mean = 0, sd = 1), color = "blue") +
+  theme(
+    axis.text.y=element_blank(),
+    axis.ticks.y=element_blank()
+  ) +
+  labs(y = "Density", x = "Values")
+```
+
+Model for continuous numerical variables with:
+
+- "bell shaped" distribution (symmetric with single peak)
+- range is unrestricted, but low probability for values far from mean
+
+## Normal distribution: Parameters
+
+$$X \sim Normal(\mu, \sigma)$$
+
+^ This mean "X follows a normal distribution with mean $\mu$ and standard deviation $\sigma$"
+
+- $\mu$ = mean
+- $\sigma$ = standard deviation
+
+## Normal distribution: Examples
+
+Recall in lab we explored potential normal distributions for:
+
+- Measurement error $\sim N(\mu = 0, \sigma = 1.5)$
+- Birth weight of ragdoll kittens (oz) $\sim N(\mu = 16, \sigma = 2)$
+- Height of students at CSUCI (inches) $\sim N(\mu = 67, \sigma = 5)$
+- Camarillo's daily high temp in July (°F) $\sim N(\mu = 0, \sigma = 1.5)$
+
+# Poisson distribution
+
+## Posson distribution
+
+Model for counts over a fixed interval (positive discrete numerical variables) when:
+
+- Events happen independently
+- The average rate ($\lambda$) is constant
+
+$$X \sim Poisson(\lambda)$$
+
+- $\lambda$ = mean = variance
+ 
+## Posson distribution: Example $\lambda$ = 15
+
+Suppose I get about 15 emails per workday
+
+```{r}
+#| echo: false
+#| fig-align: center
+
+x_seq <- 0:25
+
+data.frame(x = x_seq, y = dpois(x_seq, lambda = 15)) |> 
+ggplot(aes(x = x, y = y)) +
+  geom_point(color = "blue") +
+  geom_line(color = "blue") +
+  labs(x = "Number of emails per workday")
+```
+
+Number of emails per workday $\sim Poisson(\lambda = 15)$
+
+- Independent: Getting one email does not affect probability of getting another email
+- Constant rate: average rate of emails is consistent each workday
+
+## Posson distribution: Example $\lambda$ = 5
+
+Now suppose I only get about 5 emails per workday
+
+```{r}
+#| echo: false
+#| fig-align: center
+
+data.frame(x = x_seq, y = dpois(x_seq, lambda = 5)) |> 
+ggplot(aes(x = x, y = y)) +
+  geom_point(color = "blue") +
+  geom_line(color = "blue") +
+  labs(x = "Number of emails per workday")
+```
+
+Number of emails per workday $\sim Poisson(\lambda = 5)$
+
+## Changing rate $\lambda$
+
+Poisson distribution with different $\lambda$
+
+```{r}
+#| echo: false
+
+sim_pois <- data.frame(x = x_seq, y = dpois(x_seq, lambda = 2), lambda = 2) |> 
+  bind_rows(data.frame(x = x_seq, y = dpois(x_seq, lambda = 5), lambda = 5)) |> 
+  bind_rows(data.frame(x = x_seq, y = dpois(x_seq, lambda = 10), lambda = 10)) |> 
+  bind_rows(data.frame(x = x_seq, y = dpois(x_seq, lambda = 15), lambda = 15)) |> 
+  mutate(lambda = factor(
+    lambda,
+    levels = c(2, 5, 10, 15),
+    labels = c("\u03bb = 2", "\u03bb = 5", "\u03bb = 10", "\u03bb = 15")
+  ))
+  
+ggplot(sim_pois, aes(x = x, y = y)) +
+  geom_point(color = "blue") +
+  geom_line(color = "blue") +
+  facet_grid(~lambda)
+```
+
+
