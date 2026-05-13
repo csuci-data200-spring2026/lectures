@@ -1,0 +1,104 @@
+---
+title: ""
+format: 
+  pdf:
+    echo: false
+    message: false
+    warning: false
+    geometry:
+      - bottom=1in
+header-includes:
+  - \usepackage{lastpage}
+  - \usepackage{fancyhdr}
+  - \pagestyle{fancy}
+  - \fancyhf{}
+  - \fancyhead[L]{Data 200 Spring 2026 -- \textbf{Homework 11}}
+  - \fancyhead[R]{Distributions}
+  - \fancyfoot[C]{\thepage\ of \pageref{LastPage}}
+  - \renewcommand{\headrulewidth}{0.4pt}
+---
+
+```{r}
+#| echo: false
+library(patchwork)
+library(knitr)
+library(tidyverse)
+library(openintro)
+```
+
+Name: _____________________________
+
+
+**Question 1**
+
+For each variable below, identify its type and if the Poisson or Normal distribution might be appropriate (or neither):
+
+- Adult elephant heights
+
+\vspace*{0.75in}
+
+- Daily number of purchases
+
+\vspace*{0.75in}
+
+- Number of website hits per hour
+
+\vspace*{0.75in}
+
+- Length of human pregnancies
+
+\vspace*{0.75in}
+
+- Salaries of LA residents
+
+\vspace*{0.75in}
+
+- Number of spots on the peel of a banana in a 1 by 1 inch square
+
+\vspace*{0.75in}
+
+- Number of contagious disease cases reported at CSUCI day by day
+
+\newpage
+
+**Question 2**
+
+Fill in the table below for the Normal and Poisson distributions.
+
+|  | Normal distribution | Poisson distribution|
+|:-----------------|:--------|:--------|
+| Parameters | | |
+||||
+||||
+| Shape of distribution | | |
+||||
+||||
+| Appropriate variable type | | |
+||||
+||||
+| Use case | Measurements (typically) | Counts |
+||||
+||||
+| Example variable | | |
+||||
+||||
+
+
+**Question 3**
+
+Suppose people report seeing an average of 0.5 rattlesnakes while hiking a 3 mile loop at Wildwood Regional Park. What distribution could be appropriate to model the number of snake spotted while hiking the three mile trail?
+
+\vspace{1cm}
+
+Determine the probability of seeing no rattlesnakes on a 3-mile loop hike at Wildwood Regional Park.
+
+\vspace{1cm}
+
+Determine the probability of seeing more than 2 rattlesnakes on a 3-mile loop hike at Wildwood Regional Park.
+
+\vspace{1cm}
+
+**Question 5**
+
+Suppose that a tire manufacturer believes that the lifetimes of its tires follow a normal
+distribution with mean 50,000 miles and standard deviation 5,000 miles. What is the probability of a tire lasting less than 40,000 miles?

@@ -140,3 +140,46 @@ ggplot(sim_pois, aes(x = x, y = y)) +
 ```
 
 
+# Computing probabilities
+
+R has functions to compute the probability of a variable being less than or equal to a value, for common distributions
+
+## Computing probabilities for Normal distribution
+
+For $X \sim Normal(\mu = 2, \sigma = 1)$, 
+
+Probability of $X \leq 2$
+```{r}
+pnorm(2, mean = 2, sd = 1)
+```
+
+. . .
+
+
+Probability of $X \leq 1$
+```{r}
+pnorm(1, mean = 2, sd = 1)
+```
+
+. . .
+
+Probability of $X > 1$
+```{r}
+1 - pnorm(1, mean = 2, sd = 1)
+```
+
+## Computing probabilities for Poisson distribution
+
+For $X \sim Poisson(\lambda = 3)$, 
+
+Probability of $X \leq 3$
+```{r}
+ppois(3, lambda = 3)
+```
+
+. . .
+
+Probability of $X > 3$
+```{r}
+1 - ppois(3, lambda = 3)
+```
