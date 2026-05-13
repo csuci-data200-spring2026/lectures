@@ -1,6 +1,6 @@
 ---
 title: "Data 200: Lecture 15a"
-subtitle: "Modeling using distributions"
+subtitle: "Modeling using distributions: The Normal Distribution"
 author: "Medina - CSU Channel Islands"
 format: 
   revealjs:
