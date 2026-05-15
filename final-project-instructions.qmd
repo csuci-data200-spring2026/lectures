@@ -107,14 +107,23 @@ Your presentation should:
   - Research question(s)
   - Data description & source
   - Data cleaning / preparation (description, not code)
-  - Exploratory data analysis (visualizations required)
   - Statistical or computational methods
-  - Key findings (e.g, clusters identified, predictive model and appropriate evaluation metric, inference results)
+  - Key findings (e.g, clusters identified, predictive model and appropriate evaluation metric, inference results, statistics, data visualizations)
   - Conclusion
     - Mention limitations (e.g., were there a lot of NA's?, did the model not do well?, what additional data do you wish you had)
     - Summarize your project and key takeaways
 
-*Rubric to be determined*
+| Description | Points Possible |
+:-----------------------------------|:--|
+| Clearly conveys the research questions, why they are of interest, and population of interest. | 5 |
+| Describes their dataset including where it came from and key decisions made when cleaning the data. | 5 |
+| Uses appropriate statistical procedures and interpret result accurately. | 5 |
+| Discusses implications of results in context, instead of just reporting a value or just showing a plot without elaborating. Mentions limitations such as generalizability, model performance, etc. | 10 |
+| Well organized slides that are readable, not full of text, featuring figures with legible labels, legends, color-blind friendly colors etc. | 3 |
+| Professional presentation with all team members saying something meaningful about the project within the 10-12 minute time frame. | 5 |
+| `proposal.qmd` file in the final project repo on GitHub contains all data and code necessary to produce the results presented in the presentation. Repo follows structure specified in proposal. Code follows tidyverse style conventions. | 5|
+| All team members made meaningful commits to final project repo on GitHub with clear and informative commit messages. | 2 |
+
 
 
 ## Final project peer evaluations
@@ -122,4 +131,4 @@ Your presentation should:
 Each student will submit peer evaluations for each team’s project, excluding their own. 
 These evaluations will be done during the final time.
 
-*Rubric to be determined*
+I will bring the forms in person to be filled out during the presentations: <https://docs.google.com/document/d/1Ij5pxs5dN29uKGfSm2_SlKRUvbptOEBLuN7OXVIJ0LM/edit?usp=sharing>
